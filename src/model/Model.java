@@ -5,6 +5,8 @@
  */
 package model;
 
+import javax.swing.JTable;
+
 /**
  *
  * @author profe
@@ -19,7 +21,34 @@ public class Model {
     private int partitsEmpatats;
     private int puntsEquip;
     private int jornada;
+    private String data[][];  
+    String column[];  
+    JTable jt;   
 
+    public String[][] getData() {
+        return data;
+    }
+
+    public void setData(String[][] data) {
+        this.data = data;
+    }
+
+    public String[] getColumn() {
+        return column;
+    }
+
+    public void setColumn(String[] column) {
+        this.column = column;
+    }
+
+    public JTable getJt() {
+        return jt;
+    }
+
+    public void setJt(JTable jt) {
+        this.jt = jt;
+    }
+    
     public String getNomEquip() {
         return nomEquip;
     }
