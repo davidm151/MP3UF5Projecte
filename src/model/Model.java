@@ -20,10 +20,10 @@ public class Model {
     private int partitsPerduts;
     private int partitsEmpatats;
     private int puntsEquip;
-    private int jornada;
+    private int jornada; 
     private String data[][];  
     String column[];  
-    JTable jt;   
+    JTable jt; 
 
     public String[][] getData() {
         return data;
@@ -48,7 +48,9 @@ public class Model {
     public void setJt(JTable jt) {
         this.jt = jt;
     }
+
     
+
     public String getNomEquip() {
         return nomEquip;
     }
