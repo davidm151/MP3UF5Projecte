@@ -149,6 +149,7 @@ public class Equip {
             prBuida--;
             v[i] = null;
     }
+        
     }
     
     public static Object[] modificar(int x,String nomEquip, int golsEnContra, int golsAfavor, int partitsGuanyats, int partitsPerduts, int partitsEmpatats, int puntsEquip, int jornada){
