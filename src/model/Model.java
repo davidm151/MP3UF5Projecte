@@ -5,7 +5,13 @@
  */
 package model;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.TreeSet;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -16,11 +22,39 @@ public class Model {
     private static final int GRANDARIA = 12;
     private static int prBuida = 0;
     private static Equip[] v = new Equip[GRANDARIA];
+    private Collection c=new ArrayList();
+
+    public static int getPrBuida() {
+        return prBuida;
+    }
+
+    public static void setPrBuida(int prBuida) {
+        Model.prBuida = prBuida;
+    }
+
+    public static Equip[] getV() {
+        return v;
+    }
+
+    public static void setV(Equip[] v) {
+        Model.v = v;
+    }
+
+    public Collection getC() {
+        return c;
+    }
+
+    public Model() {
+        c=new TreeSet();
+    }
+    public void Model(Collection c) {
+        this.c = c;
+    }
 
  public static Object[] afegir(String nomEquip, int golsEnContra, int golsAfavor, int partitsGuanyats, int partitsPerduts, int partitsEmpatats, int puntsEquip, int jornada) {
-
+//Model c=new Model(new ArrayList());
         if (prBuida == v.length) {
-            //JOptionPane.showMessageDialog("Ho sento pero no caben més jugadors!!!");
+            //JOptionPane.showMessageDialog(jt,"Ho sento pero no caben més jugadors!!!");
         } else {
             try {
                 Equip eq1 = new Equip(
