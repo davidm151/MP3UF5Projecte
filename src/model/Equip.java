@@ -23,7 +23,6 @@ public class Equip {
     private int partitsEmpatats;
     private int puntsEquip;
     private int jornada;
-    private static View view;
     private static final int GRANDARIA = 12;
     private static int prBuida = 0;
     private static Equip[] v = new Equip[GRANDARIA];
