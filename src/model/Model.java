@@ -12,25 +12,17 @@ import javax.swing.JTable;
  * @author profe
  */
 public class Model {
+ 
+    private String column[];  
+    private JTable jt;
+    private Equip[] dades=new Equip[12];
 
-    private String nomEquip;
-    private int golsEnContra;
-    private int golsAfavor;
-    private int partitsGuanyats;
-    private int partitsPerduts;
-    private int partitsEmpatats;
-    private int puntsEquip;
-    private int jornada; 
-    private String data[][];  
-    String column[];  
-    JTable jt; 
-
-    public String[][] getData() {
-        return data;
+    public Equip[] getDades() {
+        return dades;
     }
 
-    public void setData(String[][] data) {
-        this.data = data;
+    public void setDades(Equip[] dades) {
+        this.dades = dades;
     }
 
     public String[] getColumn() {
@@ -49,72 +41,11 @@ public class Model {
         this.jt = jt;
     }
 
-    
-
-    public String getNomEquip() {
-        return nomEquip;
+    public void list(Equip[] dades){
+    for (int x=0;x<dades.length;x++){
+        System.out.println(dades[x]);
     }
-
-    public void setNomEquip(String nomEquip) {
-        this.nomEquip = nomEquip;
     }
-
-    public int getGolsEnContra() {
-        return golsEnContra;
-    }
-
-    public void setGolsEnContra(int golsEnContra) {
-        this.golsEnContra = golsEnContra;
-    }
-
-    public int getGolsAfavor() {
-        return golsAfavor;
-    }
-
-    public void setGolsAfavor(int golsAfavor) {
-        this.golsAfavor = golsAfavor;
-    }
-
-    public int getPartitsGuanyats() {
-        return partitsGuanyats;
-    }
-
-    public void setPartitsGuanyats(int partitsGuanyats) {
-        this.partitsGuanyats = partitsGuanyats;
-    }
-
-    public int getPartitsPerduts() {
-        return partitsPerduts;
-    }
-
-    public void setPartitsPerduts(int partitsPerduts) {
-        this.partitsPerduts = partitsPerduts;
-    }
-
-    public int getPartitsEmpatats() {
-        return partitsEmpatats;
-    }
-
-    public void setPartitsEmpatats(int partitsEmpatats) {
-        this.partitsEmpatats = partitsEmpatats;
-    }
-
-    public int getPuntsEquip() {
-        return puntsEquip;
-    }
-
-    public void setPuntsEquip(int puntsEquip) {
-        this.puntsEquip = puntsEquip;
-    }
-
-    public int getJornada() {
-        return jornada;
-    }
-
-    public void setJornada(int jornada) {
-        this.jornada = jornada;
-    }
-    
     
 
 }

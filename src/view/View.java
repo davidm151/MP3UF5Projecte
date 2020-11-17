@@ -5,6 +5,9 @@
  */
 package view;
 
+import controller.Controller;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JScrollPane;
@@ -60,6 +63,7 @@ public class View extends javax.swing.JFrame {
         jLabel23 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         partitsPerduts = new javax.swing.JTextField();
+        botoEditar = new javax.swing.JButton();
 
         jLabel11.setText("LA LIGA TEMPORADA 2020/2021 EQUIPS");
 
@@ -68,10 +72,7 @@ public class View extends javax.swing.JFrame {
 
         TaulaJugadors.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "Nom equip", "Gols afavor", "Gols en contra", "Jornada", "Partits guanyats", "Partits empatats", "Partits perduts", "Punts"
@@ -86,16 +87,6 @@ public class View extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(TaulaJugadors);
-        if (TaulaJugadors.getColumnModel().getColumnCount() > 0) {
-            TaulaJugadors.getColumnModel().getColumn(0).setHeaderValue("Nom equip");
-            TaulaJugadors.getColumnModel().getColumn(1).setHeaderValue("Gols afavor");
-            TaulaJugadors.getColumnModel().getColumn(2).setHeaderValue("Gols en contra");
-            TaulaJugadors.getColumnModel().getColumn(3).setHeaderValue("Jornada");
-            TaulaJugadors.getColumnModel().getColumn(4).setHeaderValue("Partits guanyats");
-            TaulaJugadors.getColumnModel().getColumn(5).setHeaderValue("Partits empatats");
-            TaulaJugadors.getColumnModel().getColumn(6).setHeaderValue("Partits perduts");
-            TaulaJugadors.getColumnModel().getColumn(7).setHeaderValue("Punts");
-        }
 
         jLabel2.setText("Nom Equip");
 
@@ -124,6 +115,8 @@ public class View extends javax.swing.JFrame {
         jLabel23.setText("Jornada");
 
         jLabel1.setText("Partits perduts");
+
+        botoEditar.setText("EDITAR");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -180,11 +173,13 @@ public class View extends javax.swing.JFrame {
                                 .addGap(43, 43, 43)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(eliminarEquip, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
-                                    .addComponent(zonaClassificacio, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addComponent(zonaClassificacio, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(botoEditar))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(172, 172, 172)
                                 .addComponent(jLabel12)))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 28, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(143, 143, 143)
@@ -220,7 +215,8 @@ public class View extends javax.swing.JFrame {
                             .addComponent(golsAfavor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(partitsPerduts, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(afegirEquip, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(eliminarEquip, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(eliminarEquip, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(botoEditar))
                         .addGap(37, 37, 37)
                         .addComponent(jLabel22)
                         .addGap(98, 98, 98))
@@ -280,63 +276,16 @@ public class View extends javax.swing.JFrame {
                 new View().setVisible(true);
             }
         });
+        
+        
+//        afegirEquip.addActionListener((ActionEvent e) -> {
+//            //JOptionPane.showMessageDialog(this, textBox.getText());
+//            Controller obj=new Controller();
+//            return obj.getAfegirEquips();
+//        });
+        
     }
 
-    public void setTaulaJugadors(JTable TaulaJugadors) {
-        this.TaulaJugadors = TaulaJugadors;
-    }
-
-    public void setAfegirEquip(JButton afegirEquip) {
-        this.afegirEquip = afegirEquip;
-    }
-
-    public void setEliminarEquip(JButton eliminarEquip) {
-        this.eliminarEquip = eliminarEquip;
-    }
-
-    public void setGolsAfavor(JTextField golsAfavor) {
-        this.golsAfavor = golsAfavor;
-    }
-
-    public void setGolsEnContra(JTextField golsEnContra) {
-        this.golsEnContra = golsEnContra;
-    }
-
-    public void setjScrollPane1(JScrollPane jScrollPane1) {
-        this.jScrollPane1 = jScrollPane1;
-    }
-
-    public void setJornada(JTextField jornada) {
-        this.jornada = jornada;
-    }
-
-    public void setJornades(JComboBox<String> jornades) {
-        this.jornades = jornades;
-    }
-
-    public void setNomEquip(JTextField nomEquip) {
-        this.nomEquip = nomEquip;
-    }
-
-    public void setPartitsEmpats(JTextField partitsEmpats) {
-        this.partitsEmpats = partitsEmpats;
-    }
-
-    public void setPartitsGuanyats(JTextField partitsGuanyats) {
-        this.partitsGuanyats = partitsGuanyats;
-    }
-
-    public void setPartitsPerduts(JTextField partitsPerduts) {
-        this.partitsPerduts = partitsPerduts;
-    }
-
-    public void setPuntsEquip(JTextField puntsEquip) {
-        this.puntsEquip = puntsEquip;
-    }
-
-    public void setZonaClassificacio(JComboBox<String> zonaClassificacio) {
-        this.zonaClassificacio = zonaClassificacio;
-    }
 
     public JTable getTaulaJugadors() {
         return TaulaJugadors;
@@ -394,9 +343,20 @@ public class View extends javax.swing.JFrame {
         return zonaClassificacio;
     }
 
+    public JButton getBotoEditar() {
+        return botoEditar;
+    }
+
+    public void setBotoEditar(JButton botoEditar) {
+        this.botoEditar = botoEditar;
+    }
+    
+   
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable TaulaJugadors;
     private javax.swing.JButton afegirEquip;
+    private javax.swing.JButton botoEditar;
     private javax.swing.JButton eliminarEquip;
     private javax.swing.JTextField golsAfavor;
     private javax.swing.JTextField golsEnContra;
