@@ -65,7 +65,7 @@ public class Controller {
             public void actionPerformed(ActionEvent e) {
 //                
                 DefaultTableModel model = (DefaultTableModel) view.getTaulaJugadors().getModel();
-                Object[] obj = Equip.afegir(view.getNomEquip().getText(), Integer.parseInt(view.getGolsEnContra().getText()), Integer.parseInt(view.getGolsAfavor().getText()), Integer.parseInt(view.getPartitsGuanyats().getText()),Integer.parseInt(view.getPartitsPerduts().getText()), Integer.parseInt(view.getPartitsEmpats().getText()), Integer.parseInt(view.getPuntsEquip().getText()), Integer.parseInt(view.getJornada().getText()));
+                Object[] obj = Model.afegir(view.getNomEquip().getText(), Integer.parseInt(view.getGolsEnContra().getText()), Integer.parseInt(view.getGolsAfavor().getText()), Integer.parseInt(view.getPartitsGuanyats().getText()),Integer.parseInt(view.getPartitsPerduts().getText()), Integer.parseInt(view.getPartitsEmpats().getText()), Integer.parseInt(view.getPuntsEquip().getText()), Integer.parseInt(view.getJornada().getText()));
 
                 model.addRow(obj);
                 
@@ -79,7 +79,7 @@ public class Controller {
 
                 DefaultTableModel model = (DefaultTableModel) view.getTaulaJugadors().getModel();
                 int filaSel = view.getTaulaJugadors().getSelectedRow();
-                Equip.borrar(filaSel);
+                Model.borrar(filaSel);
                 model.removeRow(filaSel);
                 
             }
@@ -92,7 +92,7 @@ public class Controller {
                //Anem a mostrar el contingut del vector dins de la taula
                 DefaultTableModel model = (DefaultTableModel) view.getTaulaJugadors().getModel();
                 int filaSel = view.getTaulaJugadors().getSelectedRow();
-                Object[] obj = Equip.modificar(filaSel,view.getNomEquip().getText(), Integer.parseInt(view.getGolsEnContra().getText()), Integer.parseInt(view.getGolsAfavor().getText()), Integer.parseInt(view.getPartitsGuanyats().getText()),Integer.parseInt(view.getPartitsPerduts().getText()), Integer.parseInt(view.getPartitsEmpats().getText()), Integer.parseInt(view.getPuntsEquip().getText()), Integer.parseInt(view.getJornada().getText()));
+                Object[] obj = Model.modificar(filaSel,view.getNomEquip().getText(), Integer.parseInt(view.getGolsEnContra().getText()), Integer.parseInt(view.getGolsAfavor().getText()), Integer.parseInt(view.getPartitsGuanyats().getText()),Integer.parseInt(view.getPartitsPerduts().getText()), Integer.parseInt(view.getPartitsEmpats().getText()), Integer.parseInt(view.getPuntsEquip().getText()), Integer.parseInt(view.getJornada().getText()));
                 model.removeRow(filaSel);
                 //Equip.modificar(filaSel);
                 model.insertRow(filaSel, obj);
