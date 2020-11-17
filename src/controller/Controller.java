@@ -92,7 +92,7 @@ public class Controller {
                //Anem a mostrar el contingut del vector dins de la taula
                 DefaultTableModel model = (DefaultTableModel) view.getTaulaJugadors().getModel();
                 int filaSel = view.getTaulaJugadors().getSelectedRow();
-                Object[] obj = Equip.modificar(filaSel,view.getNomEquip().getText(), Integer.parseInt(view.getGolsEnContra().getText()), Integer.parseInt(view.getGolsAfavor().getText()), Integer.parseInt(view.getPartitsGuanyats().getText()), Integer.parseInt(view.getPartitsEmpats().getText()), Integer.parseInt(view.getPuntsEquip().getText()), Integer.parseInt(view.getJornada().getText()), Integer.parseInt(view.getPartitsPerduts().getText()));
+                Object[] obj = Equip.modificar(filaSel,view.getNomEquip().getText(), Integer.parseInt(view.getGolsEnContra().getText()), Integer.parseInt(view.getGolsAfavor().getText()), Integer.parseInt(view.getPartitsGuanyats().getText()),Integer.parseInt(view.getPartitsPerduts().getText()), Integer.parseInt(view.getPartitsEmpats().getText()), Integer.parseInt(view.getPuntsEquip().getText()), Integer.parseInt(view.getJornada().getText()));
                 model.removeRow(filaSel);
                 //Equip.modificar(filaSel);
                 model.insertRow(filaSel, obj);
