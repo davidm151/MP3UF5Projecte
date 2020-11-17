@@ -101,19 +101,6 @@ public class Controller {
         });
     }
 
-
-    //Per implementar els ActionEvents dels components de la vista (útil per 
-    //exemple, per controlar l'acció que s'executa quan fem clic a un botó tant 
-    //usant el ratolí com si l'apretem en la barra del teclat  
-    static class Action implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        }
-
-    }
-
     static class Key implements KeyListener {
 
         @Override
