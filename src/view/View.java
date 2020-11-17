@@ -75,7 +75,7 @@ public class View extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nom equip", "Gols afavor", "Gols en contra", "Jornada", "Partits guanyats", "Partits empatats", "Partits perduts", "Punts"
+                "Nom equip", "Gols en contra", "Gols afavor", "Partits guanyats", "Partits perduts", "Partits empatats", "Punts", "Jornada"
             }
         ) {
             Class[] types = new Class [] {

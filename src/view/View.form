@@ -197,13 +197,13 @@
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
               <Table columnCount="8" rowCount="0">
                 <Column editable="true" title="Nom equip" type="java.lang.String"/>
-                <Column editable="true" title="Gols afavor" type="java.lang.Integer"/>
                 <Column editable="true" title="Gols en contra" type="java.lang.Integer"/>
-                <Column editable="true" title="Jornada" type="java.lang.Integer"/>
+                <Column editable="true" title="Gols afavor" type="java.lang.Integer"/>
                 <Column editable="true" title="Partits guanyats" type="java.lang.Integer"/>
-                <Column editable="true" title="Partits empatats" type="java.lang.Integer"/>
                 <Column editable="true" title="Partits perduts" type="java.lang.Integer"/>
+                <Column editable="true" title="Partits empatats" type="java.lang.Integer"/>
                 <Column editable="true" title="Punts" type="java.lang.Integer"/>
+                <Column editable="true" title="Jornada" type="java.lang.Integer"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
