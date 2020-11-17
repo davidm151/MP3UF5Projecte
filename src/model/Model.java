@@ -40,12 +40,4 @@ public class Model {
     public void setJt(JTable jt) {
         this.jt = jt;
     }
-
-    public void list(Equip[] dades){
-    for (int x=0;x<dades.length;x++){
-        System.out.println(dades[x]);
-    }
-    }
-    
-
 }
