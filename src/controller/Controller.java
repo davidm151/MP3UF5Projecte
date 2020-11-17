@@ -65,7 +65,7 @@ public class Controller {
             public void actionPerformed(ActionEvent e) {
 //                
                 DefaultTableModel model = (DefaultTableModel) view.getTaulaJugadors().getModel();
-                Object[] obj = Equip.afegir(view.getNomEquip().getText(), Integer.parseInt(view.getGolsEnContra().getText()), Integer.parseInt(view.getGolsAfavor().getText()), Integer.parseInt(view.getPartitsGuanyats().getText()), Integer.parseInt(view.getPartitsEmpats().getText()), Integer.parseInt(view.getPuntsEquip().getText()), Integer.parseInt(view.getJornada().getText()), Integer.parseInt(view.getPartitsPerduts().getText()));
+                Object[] obj = Equip.afegir(view.getNomEquip().getText(), Integer.parseInt(view.getGolsEnContra().getText()), Integer.parseInt(view.getGolsAfavor().getText()), Integer.parseInt(view.getPartitsGuanyats().getText()),Integer.parseInt(view.getPartitsPerduts().getText()), Integer.parseInt(view.getPartitsEmpats().getText()), Integer.parseInt(view.getPuntsEquip().getText()), Integer.parseInt(view.getJornada().getText()));
 
                 model.addRow(obj);
                 
