@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Arrays;
 import java.util.Vector;
 import javax.swing.JTable;
 import javax.swing.event.ChangeEvent;
@@ -68,7 +69,7 @@ public class Controller {
 
                 model.addRow(obj);
                 
-               
+                System.out.println(Arrays.toString(obj));
 
             }
         });
