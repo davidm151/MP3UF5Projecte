@@ -106,7 +106,7 @@ public class Equip {
     public static Object[] afegir(String nomEquip, int golsEnContra, int golsAfavor, int partitsGuanyats, int partitsPerduts, int partitsEmpatats, int puntsEquip, int jornada) {
 
         if (prBuida == v.length) {
-            //JOptionPane.showMessageDialog(this, "Ho sento pero no caben més jugadors!!!");
+            //JOptionPane.showMessageDialog("Ho sento pero no caben més jugadors!!!");
         } else {
             try {
                 Equip eq1 = new Equip(
