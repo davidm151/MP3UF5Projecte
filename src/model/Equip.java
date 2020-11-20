@@ -15,174 +15,94 @@ import view.View;
  */
 public class Equip {
 
-    private String nomEquip;
-    private int golsEnContra;
-    private int golsAfavor;
-    private int partitsGuanyats;
-    private int partitsPerduts;
-    private int partitsEmpatats;
-    private int puntsEquip;
-    private int jornada;
-    private static final int GRANDARIA = 12;
-    private static int prBuida = 0;
-    private static Equip[] v = new Equip[GRANDARIA];
+    private String _1_nomEquip;
+    private int _2_golsEnContra;
+    private int _3_golsAfavor;
+    private int _4_partitsGuanyats;
+    private int _5_partitsPerduts;
+    private int _6_partitsEmpatats;
+    private int _7_puntsEquip;
+    private int _8_jornada;
 
     
-    public Equip(String nomEquip, int golsEnContra, int golsAfavor, int partitsGuanyats, int partitsPerduts, int partitsEmpatats, int puntsEquip, int jornada) {
-        this.nomEquip = nomEquip;
-        this.golsEnContra = golsEnContra;
-        this.golsAfavor = golsAfavor;
-        this.partitsGuanyats = partitsGuanyats;
-        this.partitsPerduts = partitsPerduts;
-        this.partitsEmpatats = partitsEmpatats;
-        this.puntsEquip = puntsEquip;
-        this.jornada = jornada;
+    public Equip(String _1_nomEquip, int _2_golsEnContra, int _3_golsAfavor, int _4_partitsGuanyats, int _5_partitsPerduts, int _6_partitsEmpatats, int _7_puntsEquip, int _8_jornada) {
+        this._1_nomEquip = _1_nomEquip;
+        this._2_golsEnContra = _2_golsEnContra;
+        this._3_golsAfavor = _3_golsAfavor;
+        this._4_partitsGuanyats = _4_partitsGuanyats;
+        this._5_partitsPerduts = _5_partitsPerduts;
+        this._6_partitsEmpatats = _6_partitsEmpatats;
+        this._7_puntsEquip = _7_puntsEquip;
+        this._8_jornada = _8_jornada;
     }
 
-    public String getNomEquip() {
-        return nomEquip;
+    public String get1_nomEquip() {
+        return _1_nomEquip;
     }
 
-    public void setNomEquip(String nomEquip) {
-        this.nomEquip = nomEquip;
+    public void set1_nomEquip(String _1_nomEquip) {
+        this._1_nomEquip = _1_nomEquip;
     }
 
-    public int getGolsEnContra() {
-        return golsEnContra;
+    public int get2_golsEnContra() {
+        return _2_golsEnContra;
     }
 
-    public void setGolsEnContra(int golsEnContra) {
-        this.golsEnContra = golsEnContra;
+    public void set2_golsEnContra(int _2_golsEnContra) {
+        this._2_golsEnContra = _2_golsEnContra;
     }
 
-    public int getGolsAfavor() {
-        return golsAfavor;
+    public int get3_golsAfavor() {
+        return _3_golsAfavor;
     }
 
-    public void setGolsAfavor(int golsAfavor) {
-        this.golsAfavor = golsAfavor;
+    public void set3_golsAfavor(int _3_golsAfavor) {
+        this._3_golsAfavor = _3_golsAfavor;
     }
 
-    public int getPartitsGuanyats() {
-        return partitsGuanyats;
+    public int get4_partitsGuanyats() {
+        return _4_partitsGuanyats;
     }
 
-    public void setPartitsGuanyats(int partitsGuanyats) {
-        this.partitsGuanyats = partitsGuanyats;
+    public void set4_partitsGuanyats(int _4_partitsGuanyats) {
+        this._4_partitsGuanyats = _4_partitsGuanyats;
     }
 
-    public int getPartitsPerduts() {
-        return partitsPerduts;
+    public int get5_partitsPerduts() {
+        return _5_partitsPerduts;
     }
 
-    public void setPartitsPerduts(int partitsPerduts) {
-        this.partitsPerduts = partitsPerduts;
+    public void set5_partitsPerduts(int _5_partitsPerduts) {
+        this._5_partitsPerduts = _5_partitsPerduts;
     }
 
-    public int getPartitsEmpatats() {
-        return partitsEmpatats;
+    public int get6_partitsEmpatats() {
+        return _6_partitsEmpatats;
     }
 
-    public void setPartitsEmpatats(int partitsEmpatats) {
-        this.partitsEmpatats = partitsEmpatats;
+    public void set6_partitsEmpatats(int _6_partitsEmpatats) {
+        this._6_partitsEmpatats = _6_partitsEmpatats;
     }
 
-    public int getPuntsEquip() {
-        return puntsEquip;
+    public int get7_puntsEquip() {
+        return _7_puntsEquip;
     }
 
-    public void setPuntsEquip(int puntsEquip) {
-        this.puntsEquip = puntsEquip;
+    public void set7_puntsEquip(int _7_puntsEquip) {
+        this._7_puntsEquip = _7_puntsEquip;
     }
 
-    public int getJornada() {
-        return jornada;
+    public int get8_jornada() {
+        return _8_jornada;
     }
 
-    public void setJornada(int jornada) {
-        this.jornada = jornada;
+    public void set8_jornada(int _8_jornada) {
+        this._8_jornada = _8_jornada;
     }
 
-    public static Object[] afegir(String nomEquip, int golsEnContra, int golsAfavor, int partitsGuanyats, int partitsPerduts, int partitsEmpatats, int puntsEquip, int jornada) {
-
-        if (prBuida == v.length) {
-            //JOptionPane.showMessageDialog(this, "Ho sento pero no caben més jugadors!!!");
-        } else {
-            try {
-                Equip eq1 = new Equip(
-                nomEquip,
-                golsEnContra,
-                golsAfavor,
-                partitsGuanyats,
-                partitsPerduts,
-                partitsEmpatats,
-                puntsEquip,
-                jornada
-        );
-
-                //Insertem el nou Jugador al vector
-                v[prBuida++] = eq1;
-
-                //Anem a mostrar el contingut del vector dins de la taula
-                //DefaultTableModel model = (DefaultTableModel) taulaJugadors.getModel();
-                //DefaultTableModel model = (DefaultTableModel) view.getTaulaJugadors().getModel();
-                //model.addRow(eq1.toArray());
-                //posarEnBlanc();
-                 return eq1.toArray();
-            } catch (java.lang.NumberFormatException e) {
-              //  JOptionPane.showMessageDialog(this, "Hi ha alguna dada incorrecta");
-            }
-            
-           
-        };return null;
-
-        
-    }
-    
-    public static void borrar(int x){
-
-        if (x != -1) {
-            int i = x;
-            for (; i < v.length - 1 && v[i] != null; i++) {
-                v[i] = v[i + 1];
-            }
-            prBuida--;
-            v[i] = null;
-    }
-        
-    }
-    
-    public static Object[] modificar(int x,String nomEquip, int golsEnContra, int golsAfavor, int partitsGuanyats, int partitsPerduts, int partitsEmpatats, int puntsEquip, int jornada){
-    
-
-        if (x != -1) {
-
-            
-               Equip eq1 = new Equip(
-                nomEquip,
-                golsEnContra,
-                golsAfavor,
-                partitsGuanyats,
-                partitsPerduts,
-                partitsEmpatats,
-                puntsEquip,
-                jornada
-                );
-
-                //Modifiquem el nou Jugador al vector
-                v[x] = eq1;
-                return eq1.toArray();
-                
-                
-
-                
-    }
-        return null;
-    }
-    
-
-    public Object[] toArray(){
-        return new Object[]{nomEquip, golsEnContra, golsAfavor, partitsGuanyats, partitsPerduts, partitsEmpatats, puntsEquip,jornada};
+    @Override
+    public String toString() {
+        return "Equip{" + "_1_nomEquip=" + _1_nomEquip + ", _2_golsEnContra=" + _2_golsEnContra + ", _3_golsAfavor=" + _3_golsAfavor + ", _4_partitsGuanyats=" + _4_partitsGuanyats + ", _5_partitsPerduts=" + _5_partitsPerduts + ", _6_partitsEmpatats=" + _6_partitsEmpatats + ", _7_puntsEquip=" + _7_puntsEquip + ", _8_jornada=" + _8_jornada + '}';
     }
 
 }
