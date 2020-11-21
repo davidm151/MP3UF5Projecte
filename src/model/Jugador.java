@@ -9,7 +9,7 @@ package model;
  *
  * @author Usuario
  */
-public class Jugador {
+public class Jugador implements Comparable<Jugador>{
 
     private String _1_nomJugador;
     private String _2_cognomsJugador;
@@ -80,6 +80,11 @@ public class Jugador {
     @Override
     public String toString() {
         return "Jugador{" + "_1_nomJugador=" + _1_nomJugador + ", _2_cognomsJugador=" + _2_cognomsJugador + ", _3_equipJugador=" + _3_equipJugador + ", _4_posicioJugador=" + _4_posicioJugador + ", _5_golsJugador=" + _5_golsJugador + ", _6_partitsJugador=" + _6_partitsJugador + '}';
+    }
+
+    @Override
+    public int compareTo(Jugador o) {
+        return this._5_golsJugador-o._5_golsJugador; 
     }
 
   

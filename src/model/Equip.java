@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.util.Comparator;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -13,7 +14,7 @@ import view.View;
  *
  * @author davidmarsal
  */
-public class Equip {
+public class Equip implements Comparable<Equip>{
 
     private String _1_nomEquip;
     private int _2_golsEnContra;
@@ -103,6 +104,11 @@ public class Equip {
     @Override
     public String toString() {
         return "Equip{" + "_1_nomEquip=" + _1_nomEquip + ", _2_golsEnContra=" + _2_golsEnContra + ", _3_golsAfavor=" + _3_golsAfavor + ", _4_partitsGuanyats=" + _4_partitsGuanyats + ", _5_partitsPerduts=" + _5_partitsPerduts + ", _6_partitsEmpatats=" + _6_partitsEmpatats + ", _7_puntsEquip=" + _7_puntsEquip + ", _8_jornada=" + _8_jornada + '}';
+    }
+
+    @Override
+    public int compareTo(Equip o) {
+         return this._7_puntsEquip-o._7_puntsEquip; 
     }
 
 }

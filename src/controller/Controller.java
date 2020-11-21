@@ -58,25 +58,26 @@ public class Controller {
 
         //Codi que assigna els listeners als components de la vista
         //Combo Puntuacio
-        view.getPuntuacio().addItem("Puntuacio de major a menor");
         view.getPuntuacio().addItem("Puntuacio de menor a major");
+        view.getPuntuacio().addItem("Ordenar alfabeticament equips");
 
         tc = Utils.<Equip>loadTable(model.getDades(), view.getTaulaEquips(), Equip.class, true, true);
         tc2 = Utils.<Jugador>loadTable(model.getDadesJugador(), view.getTaulaJugadors(), Jugador.class, true, true);
 
-        view.getAfegirEquip().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                 Model.afegirEquip(view.getNomEquip().getText(), Integer.parseInt(view.getGolsEnContra().getText()), Integer.parseInt(view.getGolsAfavor().getText()), Integer.parseInt(view.getPartitsGuanyats().getText()), Integer.parseInt(view.getPartitsPerduts().getText()), Integer.parseInt(view.getPartitsEmpats().getText()), Integer.parseInt(view.getPuntsEquip().getText()), Integer.parseInt(view.getJornada().getText()));
-                 tc=Utils.<Equip>loadTable(model.getDades(), view.getTaulaEquips(), Equip.class, true, true);
+        view.getAfegirEquip().addActionListener(
+                e -> {
+                    Model.afegirEquip(view.getNomEquip().getText(), Integer.parseInt(view.getGolsEnContra().getText()), Integer.parseInt(view.getGolsAfavor().getText()), Integer.parseInt(view.getPartitsGuanyats().getText()), Integer.parseInt(view.getPartitsPerduts().getText()), Integer.parseInt(view.getPartitsEmpats().getText()), Integer.parseInt(view.getPuntsEquip().getText()), Integer.parseInt(view.getJornada().getText()));
+                    tc = Utils.<Equip>loadTable(model.getDades(), view.getTaulaEquips(), Equip.class, true, true);
+
+                }
+        );
+
+        view.getAfegirJugador().addActionListener(
+            e-> {
+                Model.afegirJugador(view.getNomJugador().getText(), view.getCognomsJugador().getText(), view.getEquipJugador().getText(), view.getPosicioJugador().getText(), Integer.parseInt(view.getGolsJugador().getText()), Integer.parseInt(view.getPartitsJugador().getText()));
+                tc2 = Utils.<Jugador>loadTable(model.getDadesJugador(), view.getTaulaJugadors(), Jugador.class, true, true);
             }
-        });
-        
-        view.getAfegirJugador().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                Model.afegirJugador(view.getNomJugador().getText(), view.getCognomsJugador().getText(), view.getEquipJugador().getText(),view.getPosicioJugador().getText(), Integer.parseInt(view.getGolsJugador().getText()), Integer.parseInt(view.getPartitsJugador().getText()));
-                tc2=Utils.<Jugador>loadTable(model.getDadesJugador(), view.getTaulaJugadors(), Jugador.class, true, true);
-            }
-        });
+        );
 
         view.getTaulaEquips().addMouseListener(
                 new MouseAdapter() {
@@ -87,8 +88,8 @@ public class Controller {
             }
         }
         );
-        
-         view.getTaulaJugadors().addMouseListener(
+
+        view.getTaulaJugadors().addMouseListener(
                 new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -100,86 +101,86 @@ public class Controller {
 
         view.getMostrar().addActionListener(
                 e -> {
-                   if (filaSel != -1) {
+                    if (filaSel != -1) {
                         TableColumnModel tcm = view.getTaulaEquips().getColumnModel();
-                       tcm.addColumn(tc);
+                        tcm.addColumn(tc);
                         Equip obj = (Equip) view.getTaulaEquips().getValueAt(filaSel, tcm.getColumnCount() - 1);
                         tcm.removeColumn(tc);
-                       JOptionPane.showMessageDialog(view, obj);
-                   } else {
+                        JOptionPane.showMessageDialog(view, obj);
+                    } else {
                         JOptionPane.showMessageDialog(view, "Has de seleccionar una fila de la taula!!");
                     }
 
                 }
         );
-        
+
         view.getMostrarJugador().addActionListener(
                 e -> {
-                   if (filaSel2 != -1) {
+                    if (filaSel2 != -1) {
                         TableColumnModel tcm = view.getTaulaJugadors().getColumnModel();
-                       tcm.addColumn(tc2);
+                        tcm.addColumn(tc2);
                         Jugador obj = (Jugador) view.getTaulaJugadors().getValueAt(filaSel2, tcm.getColumnCount() - 1);
                         tcm.removeColumn(tc2);
-                       JOptionPane.showMessageDialog(view, obj);
-                   } else {
+                        JOptionPane.showMessageDialog(view, obj);
+                    } else {
                         JOptionPane.showMessageDialog(view, "Has de seleccionar una fila de la taula!!");
                     }
 
                 }
         );
 
-view.getEliminarEquip().addActionListener(
-        
+        view.getEliminarEquip().addActionListener(
                 e -> {
-                    if(filaSel!=-1){
-                        TableColumnModel tcm=view.getTaulaEquips().getColumnModel();
+                    if (filaSel != -1) {
+                        TableColumnModel tcm = view.getTaulaEquips().getColumnModel();
                         tcm.addColumn(tc);
-                        Equip obj=(Equip)view.getTaulaEquips().getValueAt(filaSel, tcm.getColumnCount()-1);
-                        tcm.removeColumn(tc);                      
+                        Equip obj = (Equip) view.getTaulaEquips().getValueAt(filaSel, tcm.getColumnCount() - 1);
+                        tcm.removeColumn(tc);
                         model.borrarEquip(obj);
-                        tc=Utils.<Equip>loadTable(model.getDades(), view.getTaulaEquips(), Equip.class, true, true);
+                        tc = Utils.<Equip>loadTable(model.getDades(), view.getTaulaEquips(), Equip.class, true, true);
                         //Trobo que millor una vegada a seleccionat una fila i li ha donat a borrar
                         //si vol tornar a borrar una fila que tingui de clicar sobre la fila perque sinos
                         //tindrem problemes aixi que per a fer aixo simplement li donem el valro -1 a filaSel
                         //i aixo significara que no hi ha cap fila selecionada i per tant ens fara tornar a seleccionar una fila.
-                        filaSel=-1;
-                        
-                        
-                    }else JOptionPane.showMessageDialog(view, "Has de seleccionar una fila de la taula!!");
-                    
+                        filaSel = -1;
+
+                    } else {
+                        JOptionPane.showMessageDialog(view, "Has de seleccionar una fila de la taula!!");
+                    }
+
                 }
         );
-view.getEliminarJugador().addActionListener(
-        
+        view.getEliminarJugador().addActionListener(
                 e -> {
-                    if(filaSel2!=-1){
-                        TableColumnModel tcm=view.getTaulaJugadors().getColumnModel();
+                    if (filaSel2 != -1) {
+                        TableColumnModel tcm = view.getTaulaJugadors().getColumnModel();
                         tcm.addColumn(tc2);
-                        Jugador obj=(Jugador)view.getTaulaJugadors().getValueAt(filaSel2, tcm.getColumnCount()-1);
-                        tcm.removeColumn(tc2);                      
+                        Jugador obj = (Jugador) view.getTaulaJugadors().getValueAt(filaSel2, tcm.getColumnCount() - 1);
+                        tcm.removeColumn(tc2);
                         model.borrarJugador(obj);
-                        tc2=Utils.<Jugador>loadTable(model.getDadesJugador(), view.getTaulaJugadors(), Jugador.class, true, true);
+                        tc2 = Utils.<Jugador>loadTable(model.getDadesJugador(), view.getTaulaJugadors(), Jugador.class, true, true);
                         //Trobo que millor una vegada a seleccionat una fila i li ha donat a borrar
                         //si vol tornar a borrar una fila que tingui de clicar sobre la fila perque sinos
                         //tindrem problemes aixi que per a fer aixo simplement li donem el valro -1 a filaSel
                         //i aixo significara que no hi ha cap fila selecionada i per tant ens fara tornar a seleccionar una fila.
-                        filaSel2=-1;
-                        
-                        
-                    }else JOptionPane.showMessageDialog(view, "Has de seleccionar una fila de la taula!!");
-                    
+                        filaSel2 = -1;
+
+                    } else {
+                        JOptionPane.showMessageDialog(view, "Has de seleccionar una fila de la taula!!");
+                    }
+
                 }
         );
 
         view.getBotoEditar().addActionListener(
                 e -> {
-                    if(filaSel!=-1){
-                         TableColumnModel tcm=view.getTaulaEquips().getColumnModel();
+                    if (filaSel != -1) {
+                        TableColumnModel tcm = view.getTaulaEquips().getColumnModel();
                         tcm.addColumn(tc);
-                        Equip obj=(Equip)view.getTaulaEquips().getValueAt(filaSel, tcm.getColumnCount()-1);
-                        tcm.removeColumn(tc);                      
-                        model.modificarEquip(filaSel, obj);
-                         tc=Utils.<Equip>loadTable(model.getDades(), view.getTaulaEquips(), Equip.class, true, true);
+                        Equip obj = new Equip(view.getNomEquip().getText(), Integer.parseInt(view.getGolsEnContra().getText()), Integer.parseInt(view.getGolsAfavor().getText()), Integer.parseInt(view.getPartitsGuanyats().getText()), Integer.parseInt(view.getPartitsPerduts().getText()), Integer.parseInt(view.getPartitsEmpats().getText()), Integer.parseInt(view.getPuntsEquip().getText()), Integer.parseInt(view.getJornada().getText()));
+                        tcm.removeColumn(tc);
+                        model.modificarEquip(obj);
+                        tc = Utils.<Equip>loadTable(model.getDades(), view.getTaulaEquips(), Equip.class, true, true);
 //                       model.insertRow(filaSel, obj);
 //                         tcm.addColumn(tc);
 //                        Equip obj=(Equip)view.getTaulaEquips().getValueAt(filaSel, tcm.getColumnCount()-1);
@@ -190,18 +191,35 @@ view.getEliminarJugador().addActionListener(
                         //si vol tornar a borrar una fila que tingui de clicar sobre la fila perque sinos
                         //tindrem problemes aixi que per a fer aixo simplement li donem el valro -1 a filaSel
                         //i aixo significara que no hi ha cap fila selecionada i per tant ens fara tornar a seleccionar una fila.
-                        filaSel=-1;
+                        filaSel = -1;
+
+                        //Anem a mostrar el contingut del vector dins de la taula
+                        //    Model.modificarEquip(filaSel,view.getNomEquip().getText(), Integer.parseInt(view.getGolsEnContra().getText()), Integer.parseInt(view.getGolsAfavor().getText()), Integer.parseInt(view.getPartitsGuanyats().getText()), Integer.parseInt(view.getPartitsPerduts().getText()), Integer.parseInt(view.getPartitsEmpats().getText()), Integer.parseInt(view.getPuntsEquip().getText()), Integer.parseInt(view.getJornada().getText()));
+                        // model.removeRow(filaSel);
+                        //Equip.modificar(filaSel);
+                        // model.insertRow(filaSel, obj);
+                    } else {
+                        JOptionPane.showMessageDialog(view, "Has de seleccionar una fila de la taula!!");
+                    }
+
+                }
+        );
+                view.getPuntuacio().addItemListener(
+        
+                e->{
+                    if(view.getPuntuacio().getSelectedIndex()==0){
                         
-                         //Anem a mostrar el contingut del vector dins de la taula
-            //    Model.modificarEquip(filaSel,view.getNomEquip().getText(), Integer.parseInt(view.getGolsEnContra().getText()), Integer.parseInt(view.getGolsAfavor().getText()), Integer.parseInt(view.getPartitsGuanyats().getText()), Integer.parseInt(view.getPartitsPerduts().getText()), Integer.parseInt(view.getPartitsEmpats().getText()), Integer.parseInt(view.getPuntsEquip().getText()), Integer.parseInt(view.getJornada().getText()));
-               // model.removeRow(filaSel);
-                //Equip.modificar(filaSel);
-                // model.insertRow(filaSel, obj);
+                        tc=Utils.<Equip>loadTable(model.getDades(), view.getTaulaEquips(), Equip.class, true, true);
                         
-                    }else JOptionPane.showMessageDialog(view, "Has de seleccionar una fila de la taula!!");
+                    }
+                    if(view.getPuntuacio().getSelectedIndex()==1){
+                       model.getDades2().addAll(model.getDades());
+                       tc=Utils.<Equip>loadTable(model.getDades2(), view.getTaulaEquips(), Equip.class, true, true);
+                        
+                    }
                     
                 }
-    );
+        );
     }
 
     //Per implementar els ActionEvents dels components de la vista (útil per 
