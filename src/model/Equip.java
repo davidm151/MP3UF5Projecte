@@ -108,7 +108,7 @@ public class Equip implements Comparable<Equip>{
 
     @Override
     public int compareTo(Equip o) {
-         return this._7_puntsEquip-o._7_puntsEquip; 
+         return Comparator.comparing(Equip::get7_puntsEquip).thenComparing(Equip::get1_nomEquip).compare(this,o); 
     }
 
 }
