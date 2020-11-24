@@ -11,7 +11,7 @@ import java.util.Comparator;
  *
  * @author Usuario
  */
-public class Jugador implements Comparable<Jugador>{
+public class Jugador implements Comparable<Jugador> {
 
     private String _1_nomcognomsJugador;
     private String _2_equipJugador;
@@ -72,11 +72,9 @@ public class Jugador implements Comparable<Jugador>{
         this._5_partitsJugador = _5_partitsJugador;
     }
 
-
     @Override
     public int compareTo(Jugador o) {
-        return Comparator.comparing(Jugador::get4_golsJugador).thenComparing(Jugador::get1_nomcognomsJugador).compare(this,o); 
+        return Comparator.comparing(Jugador::get4_golsJugador).thenComparing(Jugador::get1_nomcognomsJugador).compare(this, o);
     }
 
-  
 }

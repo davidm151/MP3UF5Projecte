@@ -220,7 +220,7 @@ public class Controller {
         view.getBotoEditar().addActionListener(
                 e -> {
                     if (filaSel != -1) {
-                        
+
                         TableColumnModel tcm = view.getTaulaEquips().getColumnModel();
                         tcm.addColumn(tc);
                         Equip obj = (Equip) view.getTaulaEquips().getValueAt(filaSel, tcm.getColumnCount() - 1);

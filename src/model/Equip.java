@@ -10,11 +10,12 @@ import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import view.View;
+
 /**
  *
  * @author davidmarsal
  */
-public class Equip implements Comparable<Equip>{
+public class Equip implements Comparable<Equip> {
 
     private String _1_nomEquip;
     private int _2_golsEnContra;
@@ -25,7 +26,6 @@ public class Equip implements Comparable<Equip>{
     private int _7_puntsEquip;
     private int _8_jornada;
 
-    
     public Equip(String _1_nomEquip, int _2_golsEnContra, int _3_golsAfavor, int _4_partitsGuanyats, int _5_partitsPerduts, int _6_partitsEmpatats, int _7_puntsEquip, int _8_jornada) {
         this._1_nomEquip = _1_nomEquip;
         this._2_golsEnContra = _2_golsEnContra;
@@ -108,7 +108,7 @@ public class Equip implements Comparable<Equip>{
 
     @Override
     public int compareTo(Equip o) {
-         return Comparator.comparing(Equip::get7_puntsEquip).thenComparing(Equip::get1_nomEquip).compare(this,o); 
+        return Comparator.comparing(Equip::get7_puntsEquip).thenComparing(Equip::get1_nomEquip).compare(this, o);
     }
 
 }

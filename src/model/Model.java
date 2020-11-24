@@ -40,24 +40,20 @@ public class Model {
     }
 
     public Model() {
-        
-            dades.add(new Equip("Algo", 1, 2, 3, 4, 5, 6, 0));
-            dades.add(new Equip("b", 2, 1, 1, 1, 1, 1, 2));
 
-        
-            dadesJugador.add(new Jugador("a",  "a1", "a1", 10, 10));
-            dadesJugador.add(new Jugador("b", "a2", "a2", 9, 9));
-            dadesJugador.add(new Jugador("c", "a3", "a3", 8, 8));
-            dadesJugador.add(new Jugador("d",  "a4", "a4", 7, 7));
-            dadesJugador.add(new Jugador("e",  "a5", "a5", 6, 6));
+        dades.add(new Equip("Algo", 1, 2, 3, 4, 5, 6, 0));
+        dades.add(new Equip("b", 2, 1, 1, 1, 1, 1, 2));
 
-
-        
+        dadesJugador.add(new Jugador("a", "a1", "a1", 10, 10));
+        dadesJugador.add(new Jugador("b", "a2", "a2", 9, 9));
+        dadesJugador.add(new Jugador("c", "a3", "a3", 8, 8));
+        dadesJugador.add(new Jugador("d", "a4", "a4", 7, 7));
+        dadesJugador.add(new Jugador("e", "a5", "a5", 6, 6));
 
     }
 
     public static Equip afegirEquip(String _1_nomEquip, int _2_golsEnContra, int _3_golsAfavor, int _4_partitsGuanyats, int _5_partitsPerduts, int _6_partitsEmpatats, int _7_puntsEquip, int _8_jornada) {
-        Equip eq1=new Equip(
+        Equip eq1 = new Equip(
                 _1_nomEquip,
                 _2_golsEnContra,
                 _3_golsAfavor,
@@ -73,7 +69,7 @@ public class Model {
     }
 
     public static Equip afegirJugador(String _1_nomcognomsJugador, String _2_equipJugador, String _3_posicioJugador, int _4_golsJugador, int _5_partitsJugador) {
-        Jugador jug1=new Jugador(
+        Jugador jug1 = new Jugador(
                 _1_nomcognomsJugador,
                 _2_equipJugador,
                 _3_posicioJugador,
@@ -101,7 +97,7 @@ class EquipOrdenaPuntuacio implements Comparator<Equip> {
 
     @Override
     public int compare(Equip o1, Equip o2) {
-      return o1.get1_nomEquip().compareTo(o2.get1_nomEquip());
+        return o1.get1_nomEquip().compareTo(o2.get1_nomEquip());
     }
 
 }
@@ -110,6 +106,6 @@ class JugadorOrdena implements Comparator<Jugador> {
 
     @Override
     public int compare(Jugador o1, Jugador o2) {
-       return o1.get1_nomcognomsJugador().compareTo(o2.get1_nomcognomsJugador());
+        return o1.get1_nomcognomsJugador().compareTo(o2.get1_nomcognomsJugador());
     }
 }
