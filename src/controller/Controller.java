@@ -48,7 +48,7 @@ public class Controller {
         controlador();
     }
 
-    public void carregarTaulaEquipActual() {
+    public void carregarTaulaEquip() {
         if (filtroEquip == 0) {
             tc = Utils.<Equip>loadTable(model.getDades(), view.getTaulaEquips(), Equip.class, true, true);
         } else {
@@ -57,7 +57,7 @@ public class Controller {
         }
     }
 
-    public void carregarTaulaJugadorActual() {
+    public void carregarTaulaJugador() {
         if (filtroJugador == 0) {
             tc2 = Utils.<Jugador>loadTable(model.getDadesJugador(), view.getTaulaJugadors(), Jugador.class, true, true);
         } else {
@@ -78,21 +78,21 @@ public class Controller {
         view.getFiltroJugadors().addItem("Gols de menor a major");
         view.getFiltroJugadors().addItem("Ordenar alfabeticament Jugadors");
 
-        carregarTaulaJugadorActual();
-        carregarTaulaEquipActual();
+        carregarTaulaJugador();
+        carregarTaulaEquip();
 
         view.getAfegirEquip().addActionListener(
                 e -> {
                     Model.afegirEquip(view.getNomEquip().getText(), Integer.parseInt(view.getGolsEnContra().getText()), Integer.parseInt(view.getGolsAfavor().getText()), Integer.parseInt(view.getPartitsGuanyats().getText()), Integer.parseInt(view.getPartitsPerduts().getText()), Integer.parseInt(view.getPartitsEmpats().getText()), Integer.parseInt(view.getPuntsEquip().getText()), Integer.parseInt(view.getJornada().getText()));
 
-                    carregarTaulaEquipActual();
+                    carregarTaulaEquip();
                 }
         );
 
         view.getAfegirJugador().addActionListener(
                 e -> {
                     Model.afegirJugador(view.getNomJugador().getText(), view.getEquipJugador().getText(), view.getPosicioJugador().getText(), Integer.parseInt(view.getGolsJugador().getText()), Integer.parseInt(view.getPartitsJugador().getText()));
-                    carregarTaulaJugadorActual();
+                    carregarTaulaJugador();
                 }
         );
 
@@ -181,7 +181,7 @@ public class Controller {
                         Equip obj = (Equip) view.getTaulaEquips().getValueAt(filaSel, tcm.getColumnCount() - 1);
                         tcm.removeColumn(tc);
                         model.borrarEquip(obj);
-                        carregarTaulaEquipActual();
+                        carregarTaulaEquip();
                         //Trobo que millor una vegada a seleccionat una fila i li ha donat a borrar
                         //si vol tornar a borrar una fila que tingui de clicar sobre la fila perque sinos
                         //tindrem problemes aixi que per a fer aixo simplement li donem el valro -1 a filaSel
@@ -203,7 +203,7 @@ public class Controller {
                         tcm.removeColumn(tc2);
                         model.borrarJugador(obj);
 
-                        carregarTaulaJugadorActual();
+                        carregarTaulaJugador();
                         //Trobo que millor una vegada a seleccionat una fila i li ha donat a borrar
                         //si vol tornar a borrar una fila que tingui de clicar sobre la fila perque sinos
                         //tindrem problemes aixi que per a fer aixo simplement li donem el valro -1 a filaSel
@@ -233,7 +233,7 @@ public class Controller {
                         obj.set7_puntsEquip(Integer.parseInt(view.getPuntsEquip().getText()));
                         obj.set8_jornada(Integer.parseInt(view.getJornada().getText()));
                         tcm.removeColumn(tc);
-                        carregarTaulaEquipActual();
+                        carregarTaulaEquip();
                         //Aqui li donem el valor de -1 ja que sinos al editar ens deseleccionara la fila de la taula
                         //pero si li tornem a donar a editar ens editara igual sense tenir la fila seleccionada
                         //aixi que per evitar aixo li fiquem el valor -1.
@@ -256,7 +256,7 @@ public class Controller {
                         obj.set4_golsJugador(Integer.parseInt(view.getGolsJugador().getText()));
                         obj.set5_partitsJugador(Integer.parseInt(view.getPartitsJugador().getText()));
                         tcm.removeColumn(tc2);
-                        carregarTaulaJugadorActual();
+                        carregarTaulaJugador();
                         //Aqui li donem el valor de -1 ja que sinos al editar ens deseleccionara la fila de la taula
                         //pero si li tornem a donar a editar ens editara igual sense tenir la fila seleccionada
                         //aixi que per evitar aixo li fiquem el valor -1.
@@ -270,11 +270,11 @@ public class Controller {
                 e -> {
                     if (view.getPuntuacio().getSelectedIndex() == 0) {
                         filtroEquip = 0;
-                        carregarTaulaEquipActual();
+                        carregarTaulaEquip();
                     }
                     if (view.getPuntuacio().getSelectedIndex() == 1) {
                         filtroEquip = 1;
-                        carregarTaulaEquipActual();
+                        carregarTaulaEquip();
                     }
 
                 }
@@ -285,12 +285,12 @@ public class Controller {
                     if (view.getFiltroJugadors().getSelectedIndex() == 0) {
 
                         filtroJugador = 0;
-                        carregarTaulaJugadorActual();
+                        carregarTaulaJugador();
 
                     }
                     if (view.getFiltroJugadors().getSelectedIndex() == 1) {
                         filtroJugador = 1;
-                        carregarTaulaJugadorActual();
+                        carregarTaulaJugador();
 
                     }
 
