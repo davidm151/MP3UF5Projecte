@@ -61,13 +61,11 @@ public class View extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         partitsPerduts = new javax.swing.JTextField();
         botoEditar = new javax.swing.JButton();
-        mostrar = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         TaulaJugadors = new javax.swing.JTable();
         afegirJugador = new javax.swing.JButton();
         eliminarJugador = new javax.swing.JButton();
-        mostrarJugador = new javax.swing.JButton();
         editarJugador = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
@@ -143,8 +141,6 @@ public class View extends javax.swing.JFrame {
 
         botoEditar.setText("EDITAR");
 
-        mostrar.setText("MOSTRAR");
-
         jLabel6.setText("JUGADORS");
 
         TaulaJugadors.setModel(new javax.swing.table.DefaultTableModel(
@@ -163,8 +159,6 @@ public class View extends javax.swing.JFrame {
         afegirJugador.setText("AFEGIR");
 
         eliminarJugador.setText("ELIMINAR");
-
-        mostrarJugador.setText("MOSTRAR");
 
         editarJugador.setText("EDITAR");
 
@@ -237,21 +231,20 @@ public class View extends javax.swing.JFrame {
                                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 902, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(puntuacio, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(97, 97, 97)
-                                .addComponent(jLabel12))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(puntuacio, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(afegirEquip, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(eliminarEquip, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(18, 18, 18)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(botoEditar)
-                                        .addComponent(mostrar))))
-                            .addComponent(jLabel15))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(afegirEquip, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(eliminarEquip, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(18, 18, 18)
+                                        .addComponent(botoEditar))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(97, 97, 97)
+                                        .addComponent(jLabel12))
+                                    .addComponent(jLabel15))
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -288,8 +281,6 @@ public class View extends javax.swing.JFrame {
                                                 .addComponent(jLabel14)
                                                 .addGap(75, 75, 75))
                                             .addGroup(layout.createSequentialGroup()
-                                                .addComponent(mostrarJugador)
-                                                .addGap(18, 18, 18)
                                                 .addComponent(editarJugador)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                                             .addGroup(layout.createSequentialGroup()
@@ -320,10 +311,7 @@ public class View extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(botoEditar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(mostrar))
+                            .addComponent(botoEditar)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(afegirEquip, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -398,9 +386,7 @@ public class View extends javax.swing.JFrame {
                             .addComponent(eliminarJugador)
                             .addComponent(afegirJugador))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(editarJugador)
-                            .addComponent(mostrarJugador))
+                        .addComponent(editarJugador)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel16)
                         .addGap(18, 18, 18)
@@ -499,9 +485,7 @@ public class View extends javax.swing.JFrame {
         return golsJugador;
     }
 
-    public JButton getMostrarJugador() {
-        return mostrarJugador;
-    }
+
 
     public JTextField getNomJugador() {
         return nomJugador;
@@ -525,9 +509,6 @@ public class View extends javax.swing.JFrame {
         return TaulaEquips;
     }
 
-    public JButton getMostrar() {
-        return mostrar;
-    }
 
     public JButton getAfegirEquip() {
         return afegirEquip;
@@ -629,8 +610,6 @@ public class View extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jornada;
-    private javax.swing.JButton mostrar;
-    private javax.swing.JButton mostrarJugador;
     private javax.swing.JTextField nomEquip;
     private javax.swing.JTextField nomJugador;
     private javax.swing.JTextField partitsEmpats;
