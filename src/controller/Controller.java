@@ -268,7 +268,7 @@ public class Controller {
                         //aixi que per evitar aixo li fiquem el valor -1.
                         filaSel2 = -1;
                     } else {
-                        JOptionPane.showMessageDialog(view, "Has de seleccionar una fila de la taula!!");
+                        JOptionPane.showMessageDialog(view, "Has de seleccionar una fila de la taula !!");
                     }
                 }
         );
