@@ -21,6 +21,11 @@ public class Model {
     private static Collection<Equip> dades2 = new TreeSet<>(new EquipOrdenaPuntuacio());
     private static Collection<Jugador> dadesJugador = new TreeSet<>();
     private static Collection<Jugador> dadesJugador2 = new TreeSet<>(new JugadorOrdena());
+    private static Collection<Jugador> dadesJugadorCopia = new TreeSet<>();
+
+    public static Collection<Jugador> getDadesJugadorCopia() {
+        return dadesJugadorCopia;
+    }
 
     public static Collection<Jugador> getDadesJugador2() {
         return dadesJugador2;
@@ -41,14 +46,14 @@ public class Model {
 
     public Model() {
 
-        dades.add(new Equip("Algo", 1, 2, 3, 4, 5, 6, 0));
-        dades.add(new Equip("b", 2, 1, 1, 1, 1, 1, 2));
+        dades.add(new Equip("a1", 1, 2, 3, 4, 5, 6, 0));
+        dades.add(new Equip("a2", 2, 1, 1, 1, 1, 1, 2));
 
-        dadesJugador.add(new Jugador("a", "a1", "a1", 10, 10));
-        dadesJugador.add(new Jugador("b", "a2", "a2", 9, 9));
-        dadesJugador.add(new Jugador("c", "a3", "a3", 8, 8));
-        dadesJugador.add(new Jugador("d", "a4", "a4", 7, 7));
-        dadesJugador.add(new Jugador("e", "a5", "a5", 6, 6));
+        dadesJugador.add(new Jugador("a", new Equip("a1", 1, 2, 3, 4, 5, 6, 0), "a1", 10, 10));
+        dadesJugador.add(new Jugador("b", new Equip("a1", 1, 2, 3, 4, 5, 6, 0), "a2", 9, 9));
+        dadesJugador.add(new Jugador("c", new Equip("a1", 1, 2, 3, 4, 5, 6, 0), "a3", 8, 8));
+        dadesJugador.add(new Jugador("d", new Equip("a1", 1, 2, 3, 4, 5, 6, 0), "a4", 7, 7));
+        dadesJugador.add(new Jugador("e", new Equip("a1", 1, 2, 3, 4, 5, 6, 0), "a5", 6, 6));
 
     }
 
@@ -65,10 +70,11 @@ public class Model {
         );
         dades.add(eq1);
         dades2.add(eq1);
+
         return null;
     }
 
-    public static Equip afegirJugador(String _1_nomcognomsJugador, String _2_equipJugador, String _3_posicioJugador, int _4_golsJugador, int _5_partitsJugador) {
+    public static Equip afegirJugador(String _1_nomcognomsJugador, Equip _2_equipJugador, String _3_posicioJugador, int _4_golsJugador, int _5_partitsJugador) {
         Jugador jug1 = new Jugador(
                 _1_nomcognomsJugador,
                 _2_equipJugador,
@@ -78,6 +84,7 @@ public class Model {
         );
         dadesJugador.add(jug1);
         dadesJugador2.add(jug1);
+        dadesJugadorCopia.add(jug1);
         return null;
     }
 
@@ -90,7 +97,17 @@ public class Model {
         dadesJugador.remove(j1);
         dadesJugador2.remove(j1);
     }
-
+//    public void FicarEnBlancTaula(){
+//    dadesJugadorCopia.removeAll(dadesJugador);
+//    }
+//    
+//    public void buscarEquip(String j1) {
+//        for (Jugador jug : dadesJugador) {
+//            if (jug.get2_equipJugador().matches(j1)) {
+//                dadesJugadorCopia.add(jug);
+//            }
+//        }
+//    }
 }
 
 class EquipOrdenaPuntuacio implements Comparator<Equip> {
