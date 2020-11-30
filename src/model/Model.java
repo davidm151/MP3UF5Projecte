@@ -114,7 +114,7 @@ class EquipOrdenaPuntuacio implements Comparator<Equip> {
 
     @Override
     public int compare(Equip o1, Equip o2) {
-        return o1.get1_nomEquip().compareTo(o2.get1_nomEquip());
+        return o1.get1_nom().compareTo(o2.get1_nom());
     }
 
 }
@@ -123,6 +123,6 @@ class JugadorOrdena implements Comparator<Jugador> {
 
     @Override
     public int compare(Jugador o1, Jugador o2) {
-        return o1.get1_nomcognomsJugador().compareTo(o2.get1_nomcognomsJugador());
+        return o1.get1_nomcognoms().compareTo(o2.get1_nomcognoms());
     }
 }

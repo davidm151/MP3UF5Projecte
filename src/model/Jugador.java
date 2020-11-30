@@ -13,68 +13,71 @@ import java.util.Comparator;
  */
 public class Jugador implements Comparable<Jugador> {
 
-    private String _1_nomcognomsJugador;
-    private String _2_equipJugador;
-    private String _3_posicioJugador;
-    private int _4_golsJugador;
-    private int _5_partitsJugador;
+    private String _1_nomcognoms;
+    private Equip _2_equip;
+    private String _3_posicio;
+    private int _4_gols;
+    private int _5_partits;
 
-    public Jugador(String _1_nomcognomsJugador, String _2_equipJugador, String _3_posicioJugador, int _4_golsJugador, int _5_partitsJugador) {
-        this._1_nomcognomsJugador = _1_nomcognomsJugador;
-        this._2_equipJugador = _2_equipJugador;
-        this._3_posicioJugador = _3_posicioJugador;
-        this._4_golsJugador = _4_golsJugador;
-        this._5_partitsJugador = _5_partitsJugador;
+    public Jugador(String _1_nomcognoms, Equip _2_equip, String _3_posicio, int _4_gols, int _5_partits) {
+        this._1_nomcognoms = _1_nomcognoms;
+        this._2_equip = _2_equip;
+        this._3_posicio = _3_posicio;
+        this._4_gols = _4_gols;
+        this._5_partits = _5_partits;
+        this._2_equip.get9_jug().add(this);
+    }
+    
+    
+    public String get1_nomcognoms() {
+        return _1_nomcognoms;
+    }
+
+    public void set1_nomcognoms(String _1_nomcognoms) {
+        this._1_nomcognoms = _1_nomcognoms;
+    }
+
+    public Equip get2_equip() {
+        return _2_equip;
+    }
+
+    public void set2_equip(Equip _2_equip) {
+        this._2_equip = _2_equip;
+    }
+
+    public String get3_posicio() {
+        return _3_posicio;
+    }
+
+    public void set3_posicio(String _3_posicio) {
+        this._3_posicio = _3_posicio;
+    }
+
+    public int get4_gols() {
+        return _4_gols;
+    }
+
+    public void set4_gols(int _4_gols) {
+        this._4_gols = _4_gols;
+    }
+
+    public int get5_partits() {
+        return _5_partits;
+    }
+
+    public void set5_partits(int _5_partits) {
+        this._5_partits = _5_partits;
     }
 
     @Override
     public String toString() {
-        return "Jugador{" + "_1_nomcognomsJugador=" + _1_nomcognomsJugador + ", _2_equipJugador=" + _2_equipJugador + ", _3_posicioJugador=" + _3_posicioJugador + ", _4_golsJugador=" + _4_golsJugador + ", _5_partitsJugador=" + _5_partitsJugador + '}';
-    }
-
-    public String get1_nomcognomsJugador() {
-        return _1_nomcognomsJugador;
-    }
-
-    public void set1_nomcognomsJugador(String _1_nomcognomsJugador) {
-        this._1_nomcognomsJugador = _1_nomcognomsJugador;
-    }
-
-    public String get2_equipJugador() {
-        return _2_equipJugador;
-    }
-
-    public void set2_equipJugador(String _2_equipJugador) {
-        this._2_equipJugador = _2_equipJugador;
-    }
-
-    public String get3_posicioJugador() {
-        return _3_posicioJugador;
-    }
-
-    public void set3_posicioJugador(String _3_posicioJugador) {
-        this._3_posicioJugador = _3_posicioJugador;
-    }
-
-    public int get4_golsJugador() {
-        return _4_golsJugador;
-    }
-
-    public void set4_golsJugador(int _4_golsJugador) {
-        this._4_golsJugador = _4_golsJugador;
-    }
-
-    public int get5_partitsJugador() {
-        return _5_partitsJugador;
-    }
-
-    public void set5_partitsJugador(int _5_partitsJugador) {
-        this._5_partitsJugador = _5_partitsJugador;
+        //return "Jugador{" + "_1_nomcognoms=" + _1_nomcognoms + ", _2_equip=" + _2_equip + ", _3_posicio=" + _3_posicio + ", _4_gols=" + _4_gols + ", _5_partits=" + _5_partits + '}';
+        return _1_nomcognoms;
     }
 
     @Override
     public int compareTo(Jugador o) {
-        return Comparator.comparing(Jugador::get4_golsJugador).thenComparing(Jugador::get1_nomcognomsJugador).compare(this, o);
+        return Comparator.comparing(Jugador::get4_gols).thenComparing(Jugador::get1_nomcognoms).compare(this, o);
     }
 
 }
