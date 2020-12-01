@@ -45,15 +45,16 @@ public class Model {
     }
 
     public Model() {
+        Equip a1=new Equip("a1", 1, 2, 3, 4, 5, 6, 0);
+        Equip a2=new Equip("a2", 2, 1, 1, 1, 1, 1, 2);
+        dades.add(a1);
+        dades.add(a2);
 
-        dades.add(new Equip("a1", 1, 2, 3, 4, 5, 6, 0));
-        dades.add(new Equip("a2", 2, 1, 1, 1, 1, 1, 2));
-
-        dadesJugador.add(new Jugador("a", new Equip("a1", 1, 2, 3, 4, 5, 6, 0), "a1", 10, 10));
-        dadesJugador.add(new Jugador("b", new Equip("a1", 1, 2, 3, 4, 5, 6, 0), "a2", 9, 9));
-        dadesJugador.add(new Jugador("c", new Equip("a1", 1, 2, 3, 4, 5, 6, 0), "a3", 8, 8));
-        dadesJugador.add(new Jugador("d", new Equip("a1", 1, 2, 3, 4, 5, 6, 0), "a4", 7, 7));
-        dadesJugador.add(new Jugador("e", new Equip("a1", 1, 2, 3, 4, 5, 6, 0), "a5", 6, 6));
+        dadesJugador.add(new Jugador("a", a1, "a1", 10, 10));
+        dadesJugador.add(new Jugador("b", a1, "a2", 9, 9));
+        dadesJugador.add(new Jugador("c", a2, "a3", 8, 8));
+        dadesJugador.add(new Jugador("d", a2, "a4", 7, 7));
+        dadesJugador.add(new Jugador("e", a2, "a5", 6, 6));
 
     }
 

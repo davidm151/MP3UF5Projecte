@@ -48,7 +48,7 @@ public class Controller {
         view = v;
         controlador();
     }
-
+    
     public void carregarTaulaEquip() {
         if (filtroEquip == 0) {
             tc = Utils.<Equip>loadTable(model.getDades(), view.getTaulaEquips(), Equip.class, true, true);
@@ -61,27 +61,27 @@ public class Controller {
     public void carregarTaulaJugador() {
         if (filtroJugador == 0) {
             tc2 = Utils.<Jugador>loadTable(model.getDadesJugador(), view.getTaulaJugadors(), Jugador.class, true, true);
+            
         } else {
             model.getDadesJugador2().addAll(model.getDadesJugador());
             tc2 = Utils.<Jugador>loadTable(model.getDadesJugador2(), view.getTaulaJugadors(), Jugador.class, true, true);
         }
     }
-
-    public void relacionsEquipJugador() {
-        TableColumnModel tcm = view.getTaulaEquips().getColumnModel();
-        tcm.addColumn(tc);
-        Equip obj = (Equip) view.getTaulaEquips().getValueAt(filaSel, tcm.getColumnCount() - 1);
-        view.getNomEquip().setText(obj.toString());
-        tcm.removeColumn(tc);
-        if (view.getjCheckBox1().isSelected() == true) {
-            tc3 = Utils.<Jugador>loadTable(obj.get9_jug(), view.getTaulaJugadors(), Jugador.class, true, true);
-        } else {
-            carregarTaulaJugador();
-        }
-    }
+//    public void relacionsEquipJugador() {
+//        TableColumnModel tcm = view.getTaulaEquips().getColumnModel();
+//        tcm.addColumn(tc);
+//        Equip obj = (Equip) view.getTaulaEquips().getValueAt(filaSel, tcm.getColumnCount() - 1);
+//        view.getNomEquip().setText(obj.toString());
+//        tcm.removeColumn(tc);
+//        if (view.getjCheckBox1().isSelected() == true) {
+//            tc3 = Utils.<Jugador>loadTable(obj.get9_jug(), view.getTaulaJugadors(), Jugador.class, true, true);
+//        } else {
+//            carregarTaulaJugador();
+//        }
+//    }
 
     private void controlador() {
-
+        Utils.<Equip>loadCombo(model.getDades(),view.getjComboBox1());
         //Codi que inicilitza la vista
         view.setVisible(true);
 
@@ -105,17 +105,9 @@ public class Controller {
 
         view.getAfegirJugador().addActionListener(
                 e -> {
-                    if (filaSel != -1) {
-                        TableColumnModel tcm20 = view.getTaulaEquips().getColumnModel();
-                        tcm20.addColumn(tc);
-                        Equip obj20 = (Equip) view.getTaulaEquips().getValueAt(filaSel, tcm20.getColumnCount() - 1);
-                        tcm20.removeColumn(tc);
-                        Model.afegirJugador(view.getNomJugador().getText(), obj20, view.getPosicioJugador().getText(), Integer.parseInt(view.getGolsJugador().getText()), Integer.parseInt(view.getPartitsJugador().getText()));
-                        relacionsEquipJugador();
-                    } else {
-                        JOptionPane.showMessageDialog(view, "Has de seleccionar una fila de la taula EQUIPS per a seleccionar l'equip!!");
-                    }
-
+                    Equip obj1=(Equip)view.getjComboBox1().getSelectedItem();
+                    Model.afegirJugador(view.getNomJugador().getText(), obj1, view.getPosicioJugador().getText(), Integer.parseInt(view.getGolsJugador().getText()), Integer.parseInt(view.getPartitsJugador().getText()));
+                    carregarTaulaJugador();
                 }
         );
 
@@ -125,8 +117,6 @@ public class Controller {
             public void mouseClicked(MouseEvent e) {
                 filaSel = view.getTaulaEquips().getSelectedRow();
                 DefaultTableModel model1 = (DefaultTableModel) view.getTaulaEquips().getModel();
-                //  Equip nomEquip = (Equip) model1.getValueAt(view.getTaulaEquips().getSelectedRow(), 0);
-                //   System.out.println(nomEquip.toString());
                 String golsEncontra = model1.getValueAt(view.getTaulaEquips().getSelectedRow(), 1).toString();
                 String golsAfavor = model1.getValueAt(view.getTaulaEquips().getSelectedRow(), 2).toString();
                 String partitsGuanyats = model1.getValueAt(view.getTaulaEquips().getSelectedRow(), 3).toString();
@@ -147,9 +137,35 @@ public class Controller {
                 Equip obj = (Equip) view.getTaulaEquips().getValueAt(filaSel, tcm.getColumnCount() - 1);
                 view.getNomEquip().setText(obj.toString());
                 tcm.removeColumn(tc);
-                if (view.getjCheckBox1().isSelected() == true) {
+                int filaSel10 = view.getTaulaEquips().getSelectedRow();
+                System.out.println(filaSel10);
+                if (filaSel10 != -1 && view.getjCheckBox1().isSelected() == true) {
+                    tcm.removeColumn(tc);
                     tc3 = Utils.<Jugador>loadTable(obj.get9_jug(), view.getTaulaJugadors(), Jugador.class, true, true);
                 } else {
+                    tcm.removeColumn(tc);
+                    carregarTaulaJugador();
+                }
+            }
+        }
+        );
+
+        view.getjCheckBox1().addMouseListener(
+                new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                filaSel = view.getTaulaEquips().getSelectedRow();
+
+                TableColumnModel tcm = view.getTaulaEquips().getColumnModel();
+                tcm.addColumn(tc);
+                Equip obj = (Equip) view.getTaulaEquips().getValueAt(filaSel, tcm.getColumnCount() - 1);
+                tcm.removeColumn(tc);
+            //    view.getNomEquip().setText(obj.toString());
+                if (filaSel != -1 && view.getjCheckBox1().isSelected() == true) {
+                    tcm.removeColumn(tc);
+                    tc3 = Utils.<Jugador>loadTable(obj.get9_jug(), view.getTaulaJugadors(), Jugador.class, true, true);
+                } else {
+                    tcm.removeColumn(tc);
                     carregarTaulaJugador();
                 }
             }
@@ -205,7 +221,7 @@ public class Controller {
                         tcm.removeColumn(tc2);
                         model.borrarJugador(obj);
 
-                        relacionsEquipJugador();
+                        carregarTaulaJugador();
                         //Trobo que millor una vegada a seleccionat una fila i li ha donat a borrar
                         //si vol tornar a borrar una fila que tingui de clicar sobre la fila perque sinos
                         //tindrem problemes aixi que per a fer aixo simplement li donem el valro -1 a filaSel
@@ -254,15 +270,15 @@ public class Controller {
                         Jugador obj = (Jugador) view.getTaulaJugadors().getValueAt(filaSel2, tcm.getColumnCount() - 1);
                         TableColumnModel tcm20 = view.getTaulaEquips().getColumnModel();
                         tcm20.addColumn(tc);
-                        Equip obj20 = (Equip) view.getTaulaEquips().getValueAt(filaSel, tcm20.getColumnCount() - 1);
                         tcm20.removeColumn(tc);
                         obj.set1_nomcognoms(view.getNomJugador().getText());
-                        obj.set2_equip(obj20);
+                        Equip obj1=(Equip)view.getjComboBox1().getSelectedItem();
+                        obj.set2_equip(obj1);
                         obj.set3_posicio(view.getPosicioJugador().getText());
                         obj.set4_gols(Integer.parseInt(view.getGolsJugador().getText()));
                         obj.set5_partits(Integer.parseInt(view.getPartitsJugador().getText()));
                         tcm.removeColumn(tc2);
-                        relacionsEquipJugador();
+                        carregarTaulaJugador();
                         //Aqui li donem el valor de -1 ja que sinos al editar ens deseleccionara la fila de la taula
                         //pero si li tornem a donar a editar ens editara igual sense tenir la fila seleccionada
                         //aixi que per evitar aixo li fiquem el valor -1.
