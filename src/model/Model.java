@@ -6,8 +6,10 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.List;
 import java.util.TreeSet;
 import javax.swing.JTable;
 
@@ -45,8 +47,8 @@ public class Model {
     }
 
     public Model() {
-        Equip a1=new Equip("a1", 1, 2, 3, 4, 5, 6, 0);
-        Equip a2=new Equip("a2", 2, 1, 1, 1, 1, 1, 2);
+        Equip a1 = new Equip("a1", 1, 2, 3, 4, 5, 6, 0);
+        Equip a2 = new Equip("a2", 2, 1, 1, 1, 1, 1, 2);
         dades.add(a1);
         dades.add(a2);
 
@@ -98,17 +100,12 @@ public class Model {
         dadesJugador.remove(j1);
         dadesJugador2.remove(j1);
     }
-//    public void FicarEnBlancTaula(){
-//    dadesJugadorCopia.removeAll(dadesJugador);
-//    }
-//    
-//    public void buscarEquip(String j1) {
-//        for (Jugador jug : dadesJugador) {
-//            if (jug.get2_equipJugador().matches(j1)) {
-//                dadesJugadorCopia.add(jug);
-//            }
-//        }
-//    }
+
+    public void dasd() {
+        String a[]= new String[] { "A", "B", "C", "D" };
+       List<String> list = Arrays.asList(a);
+       System.out.println("The list is: " + list);
+    }
 }
 
 class EquipOrdenaPuntuacio implements Comparator<Equip> {

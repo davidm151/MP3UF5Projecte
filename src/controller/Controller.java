@@ -52,9 +52,11 @@ public class Controller {
     public void carregarTaulaEquip() {
         if (filtroEquip == 0) {
             tc = Utils.<Equip>loadTable(model.getDades(), view.getTaulaEquips(), Equip.class, true, true);
+            Utils.<Equip>loadCombo(model.getDades(),view.getjComboBox1());
         } else {
             model.getDades2().addAll(model.getDades());
             tc = Utils.<Equip>loadTable(model.getDades2(), view.getTaulaEquips(), Equip.class, true, true);
+            Utils.<Equip>loadCombo(model.getDades(),view.getjComboBox1());
         }
     }
 
@@ -67,30 +69,18 @@ public class Controller {
             tc2 = Utils.<Jugador>loadTable(model.getDadesJugador2(), view.getTaulaJugadors(), Jugador.class, true, true);
         }
     }
-//    public void relacionsEquipJugador() {
-//        TableColumnModel tcm = view.getTaulaEquips().getColumnModel();
-//        tcm.addColumn(tc);
-//        Equip obj = (Equip) view.getTaulaEquips().getValueAt(filaSel, tcm.getColumnCount() - 1);
-//        view.getNomEquip().setText(obj.toString());
-//        tcm.removeColumn(tc);
-//        if (view.getjCheckBox1().isSelected() == true) {
-//            tc3 = Utils.<Jugador>loadTable(obj.get9_jug(), view.getTaulaJugadors(), Jugador.class, true, true);
-//        } else {
-//            carregarTaulaJugador();
-//        }
-//    }
 
     private void controlador() {
-        Utils.<Equip>loadCombo(model.getDades(),view.getjComboBox1());
         //Codi que inicilitza la vista
+        model.dasd();
         view.setVisible(true);
 
         //Codi que assigna els listeners als components de la vista
         //Combo Puntuacio
+         view.getPuntuacio().addItem("Ordenar alfabeticament equips");
         view.getPuntuacio().addItem("Puntuacio de menor a major");
-        view.getPuntuacio().addItem("Ordenar alfabeticament equips");
-        view.getFiltroJugadors().addItem("Gols de menor a major");
         view.getFiltroJugadors().addItem("Ordenar alfabeticament Jugadors");
+        view.getFiltroJugadors().addItem("Gols de menor a major");
 
         carregarTaulaJugador();
         carregarTaulaEquip();
@@ -108,6 +98,7 @@ public class Controller {
                     Equip obj1=(Equip)view.getjComboBox1().getSelectedItem();
                     Model.afegirJugador(view.getNomJugador().getText(), obj1, view.getPosicioJugador().getText(), Integer.parseInt(view.getGolsJugador().getText()), Integer.parseInt(view.getPartitsJugador().getText()));
                     carregarTaulaJugador();
+                    carregarTaulaEquip();
                 }
         );
 
@@ -139,11 +130,14 @@ public class Controller {
                 tcm.removeColumn(tc);
                 int filaSel10 = view.getTaulaEquips().getSelectedRow();
                 System.out.println(filaSel10);
+               // carregarTaulaEquip();
                 if (filaSel10 != -1 && view.getjCheckBox1().isSelected() == true) {
                     tcm.removeColumn(tc);
+                    carregarTaulaEquip();
                     tc3 = Utils.<Jugador>loadTable(obj.get9_jug(), view.getTaulaJugadors(), Jugador.class, true, true);
                 } else {
                     tcm.removeColumn(tc);
+                  //  carregarTaulaEquip();
                     carregarTaulaJugador();
                 }
             }
@@ -160,12 +154,16 @@ public class Controller {
                 tcm.addColumn(tc);
                 Equip obj = (Equip) view.getTaulaEquips().getValueAt(filaSel, tcm.getColumnCount() - 1);
                 tcm.removeColumn(tc);
+                carregarTaulaEquip();
             //    view.getNomEquip().setText(obj.toString());
                 if (filaSel != -1 && view.getjCheckBox1().isSelected() == true) {
-                    tcm.removeColumn(tc);
+                    view.getNomEquip().setText(obj.toString());
+                //    tcm.removeColumn(tc);
+                  //  carregarTaulaEquip();
                     tc3 = Utils.<Jugador>loadTable(obj.get9_jug(), view.getTaulaJugadors(), Jugador.class, true, true);
                 } else {
-                    tcm.removeColumn(tc);
+                  //  tcm.removeColumn(tc);
+                    //carregarTaulaEquip();
                     carregarTaulaJugador();
                 }
             }
@@ -220,8 +218,12 @@ public class Controller {
                         Jugador obj = (Jugador) view.getTaulaJugadors().getValueAt(filaSel2, tcm.getColumnCount() - 1);
                         tcm.removeColumn(tc2);
                         model.borrarJugador(obj);
-
+                        for (int i = 0; i < view.getTaulaEquips().getRowCount(); i++) {
+                        // view.getTaulaEquips().getValueAt(8,i)==obj.get2_equip(); 
+                        // view.getTaulaEquips().getValueAt(8,i)
+                        }
                         carregarTaulaJugador();
+                        carregarTaulaEquip();
                         //Trobo que millor una vegada a seleccionat una fila i li ha donat a borrar
                         //si vol tornar a borrar una fila que tingui de clicar sobre la fila perque sinos
                         //tindrem problemes aixi que per a fer aixo simplement li donem el valro -1 a filaSel
@@ -252,6 +254,7 @@ public class Controller {
                         obj.set8_jornada(Integer.parseInt(view.getJornada().getText()));
                         tcm.removeColumn(tc);
                         carregarTaulaEquip();
+                        carregarTaulaEquip();
                         //Aqui li donem el valor de -1 ja que sinos al editar ens deseleccionara la fila de la taula
                         //pero si li tornem a donar a editar ens editara igual sense tenir la fila seleccionada
                         //aixi que per evitar aixo li fiquem el valor -1.
@@ -279,6 +282,7 @@ public class Controller {
                         obj.set5_partits(Integer.parseInt(view.getPartitsJugador().getText()));
                         tcm.removeColumn(tc2);
                         carregarTaulaJugador();
+                        carregarTaulaEquip();
                         //Aqui li donem el valor de -1 ja que sinos al editar ens deseleccionara la fila de la taula
                         //pero si li tornem a donar a editar ens editara igual sense tenir la fila seleccionada
                         //aixi que per evitar aixo li fiquem el valor -1.

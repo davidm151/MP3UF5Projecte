@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.TreeSet;
@@ -39,7 +40,6 @@ public class Equip implements Comparable<Equip> {
         this._7_punts = _7_punts;
         this._8_jornada = _8_jornada;
     }
-
 
     public Collection<Jugador> get9_jug() {
         return _9_jug;
