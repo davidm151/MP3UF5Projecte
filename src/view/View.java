@@ -82,6 +82,7 @@ public class View extends javax.swing.JFrame {
         jCheckBox1 = new javax.swing.JCheckBox();
         jComboBox1 = new javax.swing.JComboBox<>();
         jLabel21 = new javax.swing.JLabel();
+        jCheckBox2 = new javax.swing.JCheckBox();
 
         jLabel11.setText("LA LIGA TEMPORADA 2020/2021 EQUIPS");
 
@@ -177,9 +178,11 @@ public class View extends javax.swing.JFrame {
 
         jLabel20.setText("EQUIPS");
 
-        jCheckBox1.setText("Filtra Equip");
+        jCheckBox1.setText("Filtra Jugadors");
 
         jLabel21.setText("Equip");
+
+        jCheckBox2.setText("Filtra Equip");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -255,7 +258,10 @@ public class View extends javax.swing.JFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(97, 97, 97)
                                         .addComponent(jLabel12))
-                                    .addComponent(jLabel15))
+                                    .addComponent(jLabel15)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(10, 10, 10)
+                                        .addComponent(jCheckBox1)))
                                 .addGap(0, 16, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
@@ -299,8 +305,8 @@ public class View extends javax.swing.JFrame {
                                                 .addGap(51, 51, 51))
                                             .addComponent(filtroJugadors, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(47, 47, 47)
-                                        .addComponent(jCheckBox1))))
+                                        .addGap(23, 23, 23)
+                                        .addComponent(jCheckBox2))))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(489, 489, 489)
                                 .addComponent(jLabel6)
@@ -331,7 +337,9 @@ public class View extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel12)
                         .addGap(18, 18, 18)
-                        .addComponent(puntuacio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(puntuacio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jCheckBox1)))
                 .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -388,9 +396,8 @@ public class View extends javax.swing.JFrame {
                         .addComponent(jLabel16)
                         .addGap(18, 18, 18)
                         .addComponent(filtroJugadors, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(33, 33, 33)
-                        .addComponent(jCheckBox1)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jCheckBox2))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(11, 11, 11)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -416,8 +423,8 @@ public class View extends javax.swing.JFrame {
                                         .addComponent(jLabel18)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(golsJugador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(30, 30, 30))))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -469,6 +476,16 @@ public class View extends javax.swing.JFrame {
 //            return obj.getAfegirEquips();
 //        });
     }
+
+    public JCheckBox getjCheckBox2() {
+        return jCheckBox2;
+    }
+
+    public void setjCheckBox2(JCheckBox jCheckBox2) {
+        this.jCheckBox2 = jCheckBox2;
+    }
+    
+    
 
     public JComboBox<String> getFiltroJugadors() {
         return filtroJugadors;
@@ -616,6 +633,7 @@ public class View extends javax.swing.JFrame {
     private javax.swing.JTextField golsEnContra;
     private javax.swing.JTextField golsJugador;
     private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

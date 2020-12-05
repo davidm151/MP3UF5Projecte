@@ -60,7 +60,15 @@ public class Model {
 
     }
 
-    public static Equip afegirEquip(String _1_nomEquip, int _2_golsEnContra, int _3_golsAfavor, int _4_partitsGuanyats, int _5_partitsPerduts, int _6_partitsEmpatats, int _7_puntsEquip, int _8_jornada) {
+    public static <T> void insertar(T eq1, Collection<T> coleccion) {
+        coleccion.add(eq1);
+    }
+
+    public static <T> void eliminar(T eq1, Collection<T> coleccion) {
+        coleccion.remove(eq1);
+    }
+
+    public static void obtenirEquip(String _1_nomEquip, int _2_golsEnContra, int _3_golsAfavor, int _4_partitsGuanyats, int _5_partitsPerduts, int _6_partitsEmpatats, int _7_puntsEquip, int _8_jornada) {
         Equip eq1 = new Equip(
                 _1_nomEquip,
                 _2_golsEnContra,
@@ -71,13 +79,11 @@ public class Model {
                 _7_puntsEquip,
                 _8_jornada
         );
-        dades.add(eq1);
-        dades2.add(eq1);
-
-        return null;
+        Model.insertar(eq1, dades);
+        Model.insertar(eq1, dades2);
     }
 
-    public static Equip afegirJugador(String _1_nomcognomsJugador, Equip _2_equipJugador, String _3_posicioJugador, int _4_golsJugador, int _5_partitsJugador) {
+    public static void obtenirJugador(String _1_nomcognomsJugador, Equip _2_equipJugador, String _3_posicioJugador, int _4_golsJugador, int _5_partitsJugador) {
         Jugador jug1 = new Jugador(
                 _1_nomcognomsJugador,
                 _2_equipJugador,
@@ -85,26 +91,20 @@ public class Model {
                 _4_golsJugador,
                 _5_partitsJugador
         );
-        dadesJugador.add(jug1);
-        dadesJugador2.add(jug1);
-        dadesJugadorCopia.add(jug1);
-        return null;
+        Model.insertar(jug1, dadesJugador);
+        Model.insertar(jug1, dadesJugador);
     }
-
-    public void borrarEquip(Equip eq1) {
-        dades.remove(eq1);
-        dades2.remove(eq1);
-    }
-
-    public void borrarJugador(Jugador j1) {
-        dadesJugador.remove(j1);
-        dadesJugador2.remove(j1);
-    }
-
+//    public static void buscarEquipEnJugador(){
+//    while(dades.contains(dades)) {
+//             /*En este caso se posiciona en el objeto y se accede al  método del objeto que contiene el valor buscado*/
+//	        System.out.println(it.next().getNombre());
+//
+//		}
+//    }
     public void dasd() {
-        String a[]= new String[] { "A", "B", "C", "D" };
-       List<String> list = Arrays.asList(a);
-       System.out.println("The list is: " + list);
+        String a[] = new String[]{"A", "B", "C", "D"};
+        List<String> list = Arrays.asList(a);
+        System.out.println("The list is: " + list);
     }
 }
 
