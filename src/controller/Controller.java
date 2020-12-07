@@ -51,6 +51,7 @@ public class Controller {
         model = m;
         view = v;
         controlador();
+   //   Jugador.get2_equip();
     }
 
     public void carregarTaulaEquip() {
@@ -63,7 +64,7 @@ public class Controller {
             Utils.<Equip>loadCombo(model.getDades(), view.getjComboBox1());
         }
     }
-
+   
     public void carregarTaulaJugador() {
         if (filtroJugador == 0) {
             tc2 = Utils.<Jugador>loadTable(model.getDadesJugador(), view.getTaulaJugadors(), Jugador.class, true, true);
@@ -210,7 +211,7 @@ public class Controller {
                         if (filaSel2 != -1) {
                             DefaultTableModel model1 = (DefaultTableModel) view.getTaulaJugadors().getModel();
                             String nomcognoms = model1.getValueAt(view.getTaulaJugadors().getSelectedRow(), 0).toString();
-                            String equip = model1.getValueAt(view.getTaulaJugadors().getSelectedRow(), 1).toString();
+                          //  String equip = model1.getValueAt(view.getTaulaJugadors().getSelectedRow(), 1).toString();
                             String posicioJugador = model1.getValueAt(view.getTaulaJugadors().getSelectedRow(), 2).toString();
                             String golsJugador = model1.getValueAt(view.getTaulaJugadors().getSelectedRow(), 3).toString();
                             String partitsJugador = model1.getValueAt(view.getTaulaJugadors().getSelectedRow(), 4).toString();
@@ -244,8 +245,17 @@ public class Controller {
                                 tcm.addColumn(tc);
                                 Equip obj = (Equip) view.getTaulaEquips().getValueAt(filaSel, tcm.getColumnCount() - 1);
                                 tcm.removeColumn(tc);
-                                Model.<Equip>eliminar(obj, Model.getDades());
-                                Model.<Equip>eliminar(obj, Model.getDades2());
+                               
+                             //   Model.<Equip>eliminar(obj, Model.getDades());
+                             //   Model.<Equip>eliminar(obj, Model.getDades2());
+                             TableColumnModel tcm2 = view.getTaulaJugadors().getColumnModel();
+                                tcm2.addColumn(tc2);
+                               for (int i = 0; i < view.getTaulaJugadors().getRowCount(); i++) {
+                                    Jugador obj2 = (Jugador) view.getTaulaJugadors().getValueAt(i, tcm2.getColumnCount() - 1);
+                                    Model.borrarEquip(obj, obj2);
+                               }
+                                
+                                tcm2.removeColumn(tc2);
                                 carregarTaulaEquip();
                                 carregarTaulaJugador();
                                 filaSel = -1;
@@ -262,10 +272,14 @@ public class Controller {
                             if (filaSel2 != -1) {
                                 TableColumnModel tcm = view.getTaulaJugadors().getColumnModel();
                                 tcm.addColumn(tc2);
-                                Jugador obj = (Jugador) view.getTaulaJugadors().getValueAt(filaSel2, tcm.getColumnCount() - 1);
+                                Jugador obj;
+                                obj = (Jugador) view.getTaulaJugadors().getValueAt(filaSel2, tcm.getColumnCount() - 1);
                                 tcm.removeColumn(tc2);
-                                Model.<Jugador>eliminar(obj, Model.getDadesJugador());
-                                Model.<Jugador>eliminar(obj, Model.getDadesJugador2());
+                             //   Equip.EliminarJugadorDelEquip(obj);
+                               
+                             //   Model.<Jugador>eliminar(obj, Model.getDadesJugador());
+                              //  Model.<Jugador>eliminar(obj, Model.getDadesJugador2());
+                              Model.borrarJugador(obj);
                                 carregarTaulaJugador();
                                 carregarTaulaEquip();
                                 filaSel2 = -1;

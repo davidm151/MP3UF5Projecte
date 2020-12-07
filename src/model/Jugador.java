@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.util.Collection;
 import java.util.Comparator;
 
 /**
@@ -27,8 +28,7 @@ public class Jugador implements Comparable<Jugador> {
         this._5_partits = _5_partits;
         this._2_equip.get9_jug().add(this);
     }
-    
-    
+
     public String get1_nomcognoms() {
         return _1_nomcognoms;
     }
