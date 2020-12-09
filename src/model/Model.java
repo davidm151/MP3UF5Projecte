@@ -26,6 +26,8 @@ public class Model {
     private static Collection<Jugador> dadesJugador2 = new TreeSet<>(new JugadorOrdena());
     private static Collection<Jugador> dadesJugadorCopia = new TreeSet<>();
 
+    private static int prBuida = 0;
+
     public static Collection<Jugador> getDadesJugadorCopia() {
         return dadesJugadorCopia;
     }
@@ -48,41 +50,54 @@ public class Model {
     }
 
     public Model() {
-        Equip a1 = new Equip("a1", 1, 2, 3, 4, 5, 6, 0);
-        Equip a2 = new Equip("a2", 2, 1, 1, 1, 1, 1, 2);
+        StringBuilder s = new StringBuilder();
+        StringBuilder s2 = new StringBuilder();
+        Equip a1 = new Equip(s.append("a1"), 1, 2, 3, 4, 5, 6, 0);
+        Equip a2 = new Equip(s2.append("a2"), 2, 1, 1, 1, 1, 1, 2);
+
         dades.add(a1);
         dades.add(a2);
 
-        dadesJugador.add(new Jugador("a", a1, "a1", 10, 10));
-        dadesJugador.add(new Jugador("b", a1, "a2", 9, 9));
-        dadesJugador.add(new Jugador("c", a2, "a3", 8, 8));
-        dadesJugador.add(new Jugador("d", a2, "a4", 7, 7));
-        dadesJugador.add(new Jugador("e", a2, "a5", 6, 6));
+        String[] a = {"delanter"};
+        String[] ab = {"defensa"};
+        dadesJugador.add(new Jugador("a", a1, a, 10, 10));
+        dadesJugador.add(new Jugador("b", a1, a, 9, 9));
+        dadesJugador.add(new Jugador("c", a2, a, 8, 8));
+        dadesJugador.add(new Jugador("d", a2, ab, 7, 7));
+        dadesJugador.add(new Jugador("e", a2, ab, 6, 6));
         //Collection<Jugador> 9_jug = Equip.get9_jug();
     }
 
     public static <T> void insertar(T eq1, Collection<T> coleccion) {
         coleccion.add(eq1);
-         
+
     }
 
 //    public static <T> void eliminar(T eq1, Collection<T> coleccion) {
 //        coleccion.remove(eq1);
 //        //Jugador.get2_equip().get9_jug().remove(eq1);
 //    }
-     public static void borrarEquip(Equip eq1,Jugador j1) {
+    public static void borrarEquip(Equip eq1, Jugador j1) {
         dades.remove(eq1);
         dades2.remove(eq1);
-        if(j1.get2_equip().compareTo(eq1)==0) j1.set2_equip(null);
-        
+        if (j1.get2_equip().compareTo(eq1) == 0) {
+            j1.set2_equip(null);
+        }
+
     }
-public static void borrarJugador(Jugador j1) {
+
+    public static void borrarJugador(Jugador j1) {
         dadesJugador.remove(j1);
         dadesJugador2.remove(j1);
-       j1.get2_equip().get9_jug().remove(j1);
-       
+
+        if (j1.get2_equip() != null) {
+            j1.get2_equip().get9_jug().remove(j1);
+        }
+        //  if(j1.get2_equip()!=null)j1.get2_equip().get9_jug().remove(j1);
+
     }
-    public static void obtenirEquip(String _1_nomEquip, int _2_golsEnContra, int _3_golsAfavor, int _4_partitsGuanyats, int _5_partitsPerduts, int _6_partitsEmpatats, int _7_puntsEquip, int _8_jornada) {
+
+    public static void obtenirEquip(StringBuilder _1_nomEquip, int _2_golsEnContra, int _3_golsAfavor, int _4_partitsGuanyats, int _5_partitsPerduts, int _6_partitsEmpatats, int _7_puntsEquip, int _8_jornada) {
         Equip eq1 = new Equip(
                 _1_nomEquip,
                 _2_golsEnContra,
@@ -97,7 +112,7 @@ public static void borrarJugador(Jugador j1) {
         Model.insertar(eq1, dades2);
     }
 
-    public static void obtenirJugador(String _1_nomcognomsJugador, Equip _2_equipJugador, String _3_posicioJugador, int _4_golsJugador, int _5_partitsJugador) {
+    public static void obtenirJugador(String _1_nomcognomsJugador, Equip _2_equipJugador, String[] _3_posicioJugador, int _4_golsJugador, int _5_partitsJugador) {
         Jugador jug1 = new Jugador(
                 _1_nomcognomsJugador,
                 _2_equipJugador,
@@ -115,6 +130,7 @@ public static void borrarJugador(Jugador j1) {
 //
 //		}
 //    }
+
     public void dasd() {
         String a[] = new String[]{"A", "B", "C", "D"};
         List<String> list = Arrays.asList(a);

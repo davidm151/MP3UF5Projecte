@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.TreeSet;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JTable;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -51,7 +53,7 @@ public class Controller {
         model = m;
         view = v;
         controlador();
-   //   Jugador.get2_equip();
+        //   Jugador.get2_equip();
     }
 
     public void carregarTaulaEquip() {
@@ -64,7 +66,7 @@ public class Controller {
             Utils.<Equip>loadCombo(model.getDades(), view.getjComboBox1());
         }
     }
-   
+
     public void carregarTaulaJugador() {
         if (filtroJugador == 0) {
             tc2 = Utils.<Jugador>loadTable(model.getDadesJugador(), view.getTaulaJugadors(), Jugador.class, true, true);
@@ -93,7 +95,10 @@ public class Controller {
 
         view.getAfegirEquip().addActionListener(
                 e -> {
-                    model.obtenirEquip(view.getNomEquip().getText(), Integer.parseInt(view.getGolsEnContra().getText()), Integer.parseInt(view.getGolsAfavor().getText()), Integer.parseInt(view.getPartitsGuanyats().getText()), Integer.parseInt(view.getPartitsPerduts().getText()), Integer.parseInt(view.getPartitsEmpats().getText()), Integer.parseInt(view.getPuntsEquip().getText()), Integer.parseInt(view.getJornada().getText()));
+                    Pattern pattern = null;
+                    pattern = Pattern.compile("^[a-zA-Z]*$");
+                    StringBuilder a = new StringBuilder();
+                    model.obtenirEquip(a.append(view.getNomEquip().getText()), Integer.parseInt(view.getGolsEnContra().getText()), Integer.parseInt(view.getGolsAfavor().getText()), Integer.parseInt(view.getPartitsGuanyats().getText()), Integer.parseInt(view.getPartitsPerduts().getText()), Integer.parseInt(view.getPartitsEmpats().getText()), Integer.parseInt(view.getPuntsEquip().getText()), Integer.parseInt(view.getJornada().getText()));
                     //model.<Equip>insertar(obj, model.getDades());
                     carregarTaulaJugador();
                     carregarTaulaEquip();
@@ -103,10 +108,48 @@ public class Controller {
         view.getAfegirJugador().addActionListener(
                 e -> {
                     Equip obj1 = (Equip) view.getjComboBox1().getSelectedItem();
-                    model.obtenirJugador(view.getNomJugador().getText(), obj1, view.getPosicioJugador().getText(), Integer.parseInt(view.getGolsJugador().getText()), Integer.parseInt(view.getPartitsJugador().getText()));
-                    //Model.<Jugador>insertar(obj, Model.getDadesJugador());
-                    carregarTaulaJugador();
-                    carregarTaulaEquip();
+                    String[] a = new String[1];
+                    a[0] = view.getPosicioJugador().getText();
+
+                    String[] a1 = {"Defensa"};
+                    String[] b = {"Delanter"};
+                    String[] c = {"Porter"};
+                    String[] d = {"Mitg camp"};
+                    String[] a2 = {"defensa"};
+                    String[] b2 = {"delanter"};
+                    String[] c2 = {"porter"};
+                    String[] d2 = {"mitg camp"};
+                    if (Arrays.compare(a, a1) == 0 || Arrays.compare(a, b) == 0 || Arrays.compare(a, c) == 0 || Arrays.compare(a, d) == 0 || Arrays.compare(a, a2) == 0 || Arrays.compare(a, b2) == 0 || Arrays.compare(a, c2) == 0 || Arrays.compare(a, d2) == 0) {
+                        Pattern pattern = null;
+                        pattern = Pattern.compile("^[a-zA-Z]*$");
+                        while (true) {
+                            String text = view.getNomJugador().getText();
+                            if (text.isEmpty()) {
+                                break;
+                            }
+                            Matcher matcher = pattern.matcher(text);
+                            boolean found = false;
+                            while (matcher.find()) {
+
+                                found = true;
+
+                                model.obtenirJugador(view.getNomJugador().getText(), obj1, a, Integer.parseInt(view.getGolsJugador().getText()), Integer.parseInt(view.getPartitsJugador().getText()));
+
+                                carregarTaulaJugador();
+                                carregarTaulaEquip();
+                                break;
+                            }
+                            if (!found) {
+                                JOptionPane.showMessageDialog(view, "No has introduit un nom de jugador correcte has introduit algo mes apart de lletres");
+                                break;
+                            }
+                            break;
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(view, "No has introduit una posicio correcta te de ser Defensa o Delanter o Porter o mitg camp");
+
+                    }
+
                 }
         );
 
@@ -211,7 +254,7 @@ public class Controller {
                         if (filaSel2 != -1) {
                             DefaultTableModel model1 = (DefaultTableModel) view.getTaulaJugadors().getModel();
                             String nomcognoms = model1.getValueAt(view.getTaulaJugadors().getSelectedRow(), 0).toString();
-                          //  String equip = model1.getValueAt(view.getTaulaJugadors().getSelectedRow(), 1).toString();
+                            //  String equip = model1.getValueAt(view.getTaulaJugadors().getSelectedRow(), 1).toString();
                             String posicioJugador = model1.getValueAt(view.getTaulaJugadors().getSelectedRow(), 2).toString();
                             String golsJugador = model1.getValueAt(view.getTaulaJugadors().getSelectedRow(), 3).toString();
                             String partitsJugador = model1.getValueAt(view.getTaulaJugadors().getSelectedRow(), 4).toString();
@@ -245,16 +288,16 @@ public class Controller {
                                 tcm.addColumn(tc);
                                 Equip obj = (Equip) view.getTaulaEquips().getValueAt(filaSel, tcm.getColumnCount() - 1);
                                 tcm.removeColumn(tc);
-                               
-                             //   Model.<Equip>eliminar(obj, Model.getDades());
-                             //   Model.<Equip>eliminar(obj, Model.getDades2());
-                             TableColumnModel tcm2 = view.getTaulaJugadors().getColumnModel();
+
+                                //   Model.<Equip>eliminar(obj, Model.getDades());
+                                //   Model.<Equip>eliminar(obj, Model.getDades2());
+                                TableColumnModel tcm2 = view.getTaulaJugadors().getColumnModel();
                                 tcm2.addColumn(tc2);
-                               for (int i = 0; i < view.getTaulaJugadors().getRowCount(); i++) {
+                                for (int i = 0; i < view.getTaulaJugadors().getRowCount(); i++) {
                                     Jugador obj2 = (Jugador) view.getTaulaJugadors().getValueAt(i, tcm2.getColumnCount() - 1);
                                     Model.borrarEquip(obj, obj2);
-                               }
-                                
+                                }
+
                                 tcm2.removeColumn(tc2);
                                 carregarTaulaEquip();
                                 carregarTaulaJugador();
@@ -275,11 +318,11 @@ public class Controller {
                                 Jugador obj;
                                 obj = (Jugador) view.getTaulaJugadors().getValueAt(filaSel2, tcm.getColumnCount() - 1);
                                 tcm.removeColumn(tc2);
-                             //   Equip.EliminarJugadorDelEquip(obj);
-                               
-                             //   Model.<Jugador>eliminar(obj, Model.getDadesJugador());
-                              //  Model.<Jugador>eliminar(obj, Model.getDadesJugador2());
-                              Model.borrarJugador(obj);
+                                //   Equip.EliminarJugadorDelEquip(obj);
+
+                                //   Model.<Jugador>eliminar(obj, Model.getDadesJugador());
+                                //  Model.<Jugador>eliminar(obj, Model.getDadesJugador2());
+                                Model.borrarJugador(obj);
                                 carregarTaulaJugador();
                                 carregarTaulaEquip();
                                 filaSel2 = -1;
@@ -299,7 +342,8 @@ public class Controller {
                                 TableColumnModel tcm = view.getTaulaEquips().getColumnModel();
                                 tcm.addColumn(tc);
                                 Equip obj = (Equip) view.getTaulaEquips().getValueAt(filaSel, tcm.getColumnCount() - 1);
-                                obj.set1_nom(view.getNomEquip().getText());
+                                StringBuilder a = new StringBuilder();
+                                obj.set1_nom(a.append(view.getNomEquip().getText()));
                                 obj.set2_golsEnContra(Integer.parseInt(view.getGolsEnContra().getText()));
                                 obj.set3_golsAfavor(Integer.parseInt(view.getGolsAfavor().getText()));
                                 obj.set4_partitsGuanyats(Integer.parseInt(view.getPartitsGuanyats().getText()));
@@ -310,7 +354,7 @@ public class Controller {
                                 tcm.removeColumn(tc);
                                 carregarTaulaEquip();
                                 carregarTaulaJugador();
-                               filaSel = -1;
+                                filaSel = -1;
                             } else {
                                 JOptionPane.showMessageDialog(view, "Has de seleccionar una fila de la taula!!");
                             }
@@ -321,25 +365,63 @@ public class Controller {
                 .addActionListener(
                         e -> {
                             if (filaSel2 != -1) {
-                                TableColumnModel tcm2 = view.getTaulaJugadors().getColumnModel();
-                                tcm2.addColumn(tc2);
-                                Jugador obj = (Jugador) view.getTaulaJugadors().getValueAt(filaSel2, tcm2.getColumnCount() - 1);
-                                TableColumnModel tcm20 = view.getTaulaEquips().getColumnModel();
-                                tcm20.addColumn(tc);
-                                tcm20.removeColumn(tc);
-                                obj.set1_nomcognoms(view.getNomJugador().getText());
-                                Equip obj1 = (Equip) view.getjComboBox1().getSelectedItem();
-                                obj.set2_equip(obj1);
-                                obj.set3_posicio(view.getPosicioJugador().getText());
-                                obj.set4_gols(Integer.parseInt(view.getGolsJugador().getText()));
-                                obj.set5_partits(Integer.parseInt(view.getPartitsJugador().getText()));
-                                tcm2.removeColumn(tc2);
-                                carregarTaulaJugador();
-                                carregarTaulaEquip();
-                                //Aqui li donem el valor de -1 ja que sinos al editar ens deseleccionara la fila de la taula
-                                //pero si li tornem a donar a editar ens editara igual sense tenir la fila seleccionada
-                                //aixi que per evitar aixo li fiquem el valor -1.
-                                filaSel2 = -1;
+                                String[] a = new String[1];
+                                a[0] = view.getPosicioJugador().getText();
+
+                                String[] a1 = {"Defensa"};
+                                String[] b = {"Delanter"};
+                                String[] c = {"Porter"};
+                                String[] d = {"Mitg camp"};
+                                String[] a2 = {"defensa"};
+                                String[] b2 = {"delanter"};
+                                String[] c2 = {"porter"};
+                                String[] d2 = {"mitg camp"};
+                                if (Arrays.compare(a, a1) == 0 || Arrays.compare(a, b) == 0 || Arrays.compare(a, c) == 0 || Arrays.compare(a, d) == 0 || Arrays.compare(a, a2) == 0 || Arrays.compare(a, b2) == 0 || Arrays.compare(a, c2) == 0 || Arrays.compare(a, d2) == 0) {
+                                    Pattern pattern = null;
+                                    pattern = Pattern.compile("^[a-zA-Z]*$");
+                                    while (true) {
+                                        String text = view.getNomJugador().getText();
+                                        if (text.isEmpty()) {
+                                            break;
+                                        }
+                                        Matcher matcher = pattern.matcher(text);
+                                        boolean found = false;
+                                        while (matcher.find()) {
+
+                                            found = true;
+                                            TableColumnModel tcm2 = view.getTaulaJugadors().getColumnModel();
+                                            tcm2.addColumn(tc2);
+                                            Jugador obj = (Jugador) view.getTaulaJugadors().getValueAt(filaSel2, tcm2.getColumnCount() - 1);
+                                            TableColumnModel tcm20 = view.getTaulaEquips().getColumnModel();
+                                            tcm20.addColumn(tc);
+                                            tcm20.removeColumn(tc);
+                                            obj.set1_nomcognoms(view.getNomJugador().getText());
+                                            Equip obj1 = (Equip) view.getjComboBox1().getSelectedItem();
+                                            obj.set2_equip(obj1);
+                                            String[] a3 = new String[1];
+                                            a3[0] = view.getPosicioJugador().getText();
+                                            obj.set3_posicio(a3);
+                                            obj.set4_gols(Integer.parseInt(view.getGolsJugador().getText()));
+                                            obj.set5_partits(Integer.parseInt(view.getPartitsJugador().getText()));
+                                            tcm2.removeColumn(tc2);
+                                            carregarTaulaJugador();
+                                            carregarTaulaEquip();
+                                            //Aqui li donem el valor de -1 ja que sinos al editar ens deseleccionara la fila de la taula
+                                            //pero si li tornem a donar a editar ens editara igual sense tenir la fila seleccionada
+                                            //aixi que per evitar aixo li fiquem el valor -1.
+                                            filaSel2 = -1;
+                                            break;
+                                        }
+                                        if (!found) {
+                                            JOptionPane.showMessageDialog(view, "No has introduit un nom de jugador correcte has introduit algo mes apart de lletres");
+                                            break;
+                                        }
+                                        break;
+                                    }
+                                } else {
+                                    JOptionPane.showMessageDialog(view, "No has introduit una posicio correcta te de ser Defensa o Delanter o Porter o mitg camp");
+
+                                }
                             } else {
                                 JOptionPane.showMessageDialog(view, "Has de seleccionar una fila de la taula !!");
                             }

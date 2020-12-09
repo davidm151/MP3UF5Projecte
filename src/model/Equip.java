@@ -20,8 +20,8 @@ import view.View;
  */
 public class Equip implements Comparable<Equip> {
 
-    private String _1_nom;
-   // private StringBuilder _1_nom=new StringBuilder();
+    //private String _1_nom;
+    private StringBuilder _1_nom=new StringBuilder();
     private int _2_golsEnContra;
     private int _3_golsAfavor;
     private int _4_partitsGuanyats;
@@ -31,7 +31,7 @@ public class Equip implements Comparable<Equip> {
     private int _8_jornada;
     public Collection<Jugador> _9_jug = new TreeSet<>();
 
-    public Equip(String _1_nom, int _2_golsEnContra, int _3_golsAfavor, int _4_partitsGuanyats, int _5_partitsPerduts, int _6_partitsEmpatats, int _7_punts, int _8_jornada) {
+    public Equip(StringBuilder _1_nom, int _2_golsEnContra, int _3_golsAfavor, int _4_partitsGuanyats, int _5_partitsPerduts, int _6_partitsEmpatats, int _7_punts, int _8_jornada) {
         this._1_nom = _1_nom;
         this._2_golsEnContra = _2_golsEnContra;
         this._3_golsAfavor = _3_golsAfavor;
@@ -102,13 +102,15 @@ public class Equip implements Comparable<Equip> {
         this._8_jornada = _8_jornada;
     }
 
-    public String get1_nom() {
+    public StringBuilder get1_nom() {
         return _1_nom;
     }
 
-    public void set1_nom(String _1_nom) {
+    public void set1_nom(StringBuilder _1_nom) {
         this._1_nom = _1_nom;
     }
+    
+    
 
     public int get7_punts() {
         return _7_punts;
@@ -120,7 +122,7 @@ public class Equip implements Comparable<Equip> {
 
     @Override
     public String toString() {
-        return _1_nom;
+        return _1_nom.toString();
     }
 
     @Override

@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
 
@@ -16,17 +17,18 @@ public class Jugador implements Comparable<Jugador> {
 
     private String _1_nomcognoms;
     private Equip _2_equip;
-    private String _3_posicio;
+    private String[] _3_posicio;
     private int _4_gols;
     private int _5_partits;
 
-    public Jugador(String _1_nomcognoms, Equip _2_equip, String _3_posicio, int _4_gols, int _5_partits) {
+    public Jugador(String _1_nomcognoms, Equip _2_equip, String[] _3_posicio, int _4_gols, int _5_partits) {
         this._1_nomcognoms = _1_nomcognoms;
         this._2_equip = _2_equip;
         this._3_posicio = _3_posicio;
         this._4_gols = _4_gols;
         this._5_partits = _5_partits;
         this._2_equip.get9_jug().add(this);
+        
     }
 
     public String get1_nomcognoms() {
@@ -46,10 +48,10 @@ public class Jugador implements Comparable<Jugador> {
     }
 
     public String get3_posicio() {
-        return _3_posicio;
+       return Arrays.toString(_3_posicio);
     }
 
-    public void set3_posicio(String _3_posicio) {
+    public void set3_posicio(String[] _3_posicio) {
         this._3_posicio = _3_posicio;
     }
 
