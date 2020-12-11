@@ -80,7 +80,7 @@ public class Model {
     public static void borrarEquip(Equip eq1, Jugador j1) {
         dades.remove(eq1);
         dades2.remove(eq1);
-        if (j1.get2_equip().compareTo(eq1) == 0) {
+        if (j1.get2_equip()!=null && j1.get2_equip().compareTo(eq1) == 0) {
             j1.set2_equip(null);
         }
 

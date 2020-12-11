@@ -147,13 +147,13 @@ public class View extends javax.swing.JFrame {
 
         TaulaJugadors.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Nom", "Cognoms", "Equip", "Posicio", "Gols", "Partits Jugats"
+                "Nom", "Equip", "Posicio", "Gols", "Partits Jugats"
             }
         ));
         jScrollPane2.setViewportView(TaulaJugadors);

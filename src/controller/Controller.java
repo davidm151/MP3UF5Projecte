@@ -98,10 +98,33 @@ public class Controller {
                     Pattern pattern = null;
                     pattern = Pattern.compile("^[a-zA-Z]*$");
                     StringBuilder a = new StringBuilder();
-                    model.obtenirEquip(a.append(view.getNomEquip().getText()), Integer.parseInt(view.getGolsEnContra().getText()), Integer.parseInt(view.getGolsAfavor().getText()), Integer.parseInt(view.getPartitsGuanyats().getText()), Integer.parseInt(view.getPartitsPerduts().getText()), Integer.parseInt(view.getPartitsEmpats().getText()), Integer.parseInt(view.getPuntsEquip().getText()), Integer.parseInt(view.getJornada().getText()));
+
+                    while (true) {
+                        String text = view.getNomEquip().getText();
+                        if (text.isEmpty()) {
+                            break;
+                        }
+                        Matcher matcher = pattern.matcher(text);
+                        boolean found = false;
+                        while (matcher.find()) {
+                            try {
+                                model.obtenirEquip(a.append(view.getNomEquip().getText()), Integer.parseInt(view.getGolsEnContra().getText()), Integer.parseInt(view.getGolsAfavor().getText()), Integer.parseInt(view.getPartitsGuanyats().getText()), Integer.parseInt(view.getPartitsPerduts().getText()), Integer.parseInt(view.getPartitsEmpats().getText()), Integer.parseInt(view.getPuntsEquip().getText()), Integer.parseInt(view.getJornada().getText()));
+                            } catch (NumberFormatException exception) {
+                                JOptionPane.showMessageDialog(view, "On tenies d'introduir un numero has introduit lletres o caracters o no has introduit res");
+                            }
+                            found = true;
+                            carregarTaulaJugador();
+                            carregarTaulaEquip();
+                            break;
+                        }
+                        if (!found) {
+                            JOptionPane.showMessageDialog(view, "No has introduit un nom de equip correcte has introduit algo mes apart de lletres");
+                            break;
+                        }
+                        break;
+                    }
+
                     //model.<Equip>insertar(obj, model.getDades());
-                    carregarTaulaJugador();
-                    carregarTaulaEquip();
                 }
         );
 
@@ -131,10 +154,12 @@ public class Controller {
                             boolean found = false;
                             while (matcher.find()) {
 
+                                try {
+                                    model.obtenirJugador(view.getNomJugador().getText(), obj1, a, Integer.parseInt(view.getGolsJugador().getText()), Integer.parseInt(view.getPartitsJugador().getText()));
+                                } catch (NumberFormatException exception) {
+                                    JOptionPane.showMessageDialog(view, "On tenies d'introduir un numero has introduit lletres o caracters o no has introduit res");
+                                }
                                 found = true;
-
-                                model.obtenirJugador(view.getNomJugador().getText(), obj1, a, Integer.parseInt(view.getGolsJugador().getText()), Integer.parseInt(view.getPartitsJugador().getText()));
-
                                 carregarTaulaJugador();
                                 carregarTaulaEquip();
                                 break;
@@ -342,19 +367,44 @@ public class Controller {
                                 TableColumnModel tcm = view.getTaulaEquips().getColumnModel();
                                 tcm.addColumn(tc);
                                 Equip obj = (Equip) view.getTaulaEquips().getValueAt(filaSel, tcm.getColumnCount() - 1);
+                                Pattern pattern = null;
+                                pattern = Pattern.compile("^[a-zA-Z]*$");
                                 StringBuilder a = new StringBuilder();
-                                obj.set1_nom(a.append(view.getNomEquip().getText()));
-                                obj.set2_golsEnContra(Integer.parseInt(view.getGolsEnContra().getText()));
-                                obj.set3_golsAfavor(Integer.parseInt(view.getGolsAfavor().getText()));
-                                obj.set4_partitsGuanyats(Integer.parseInt(view.getPartitsGuanyats().getText()));
-                                obj.set5_partitsPerduts(Integer.parseInt(view.getPartitsPerduts().getText()));
-                                obj.set6_partitsEmpatats(Integer.parseInt(view.getPartitsEmpats().getText()));
-                                obj.set7_punts(Integer.parseInt(view.getPuntsEquip().getText()));
-                                obj.set8_jornada(Integer.parseInt(view.getJornada().getText()));
                                 tcm.removeColumn(tc);
-                                carregarTaulaEquip();
-                                carregarTaulaJugador();
-                                filaSel = -1;
+                                while (true) {
+                                    String text = view.getNomEquip().getText();
+                                    if (text.isEmpty()) {
+                                        break;
+                                    }
+                                    Matcher matcher = pattern.matcher(text);
+                                    boolean found = false;
+                                    while (matcher.find()) {
+
+                                        try {
+                                            obj.set1_nom(a.append(view.getNomEquip().getText()));
+                                            obj.set2_golsEnContra(Integer.parseInt(view.getGolsEnContra().getText()));
+                                            obj.set3_golsAfavor(Integer.parseInt(view.getGolsAfavor().getText()));
+                                            obj.set4_partitsGuanyats(Integer.parseInt(view.getPartitsGuanyats().getText()));
+                                            obj.set5_partitsPerduts(Integer.parseInt(view.getPartitsPerduts().getText()));
+                                            obj.set6_partitsEmpatats(Integer.parseInt(view.getPartitsEmpats().getText()));
+                                            obj.set7_punts(Integer.parseInt(view.getPuntsEquip().getText()));
+                                            obj.set8_jornada(Integer.parseInt(view.getJornada().getText()));
+                                            
+                                        } catch (NumberFormatException exception) {
+                                            JOptionPane.showMessageDialog(view, "On tenies d'introduir un numero has introduit lletres o caracters o no has introduit res");
+                                        }
+                                        found = true;
+                                        carregarTaulaJugador();
+                                        carregarTaulaEquip();
+                                        
+                                        break;
+                                    }
+                                    if (!found) {
+                                        JOptionPane.showMessageDialog(view, "No has introduit un nom de equip correcte has introduit algo mes apart de lletres");
+                                        break;
+                                    }
+                                    break;
+                                }
                             } else {
                                 JOptionPane.showMessageDialog(view, "Has de seleccionar una fila de la taula!!");
                             }
@@ -395,15 +445,20 @@ public class Controller {
                                             TableColumnModel tcm20 = view.getTaulaEquips().getColumnModel();
                                             tcm20.addColumn(tc);
                                             tcm20.removeColumn(tc);
-                                            obj.set1_nomcognoms(view.getNomJugador().getText());
-                                            Equip obj1 = (Equip) view.getjComboBox1().getSelectedItem();
-                                            obj.set2_equip(obj1);
-                                            String[] a3 = new String[1];
-                                            a3[0] = view.getPosicioJugador().getText();
-                                            obj.set3_posicio(a3);
-                                            obj.set4_gols(Integer.parseInt(view.getGolsJugador().getText()));
-                                            obj.set5_partits(Integer.parseInt(view.getPartitsJugador().getText()));
                                             tcm2.removeColumn(tc2);
+                                            try {
+                                                obj.set1_nomcognoms(view.getNomJugador().getText());
+                                                Equip obj1 = (Equip) view.getjComboBox1().getSelectedItem();
+                                                obj.set2_equip(obj1);
+                                                String[] a3 = new String[1];
+                                                a3[0] = view.getPosicioJugador().getText();
+                                                obj.set3_posicio(a3);
+                                                obj.set4_gols(Integer.parseInt(view.getGolsJugador().getText()));
+                                                obj.set5_partits(Integer.parseInt(view.getPartitsJugador().getText()));
+
+                                            } catch (NumberFormatException exception) {
+                                                JOptionPane.showMessageDialog(view, "On tenies d'introduir un numero has introduit lletres o caracters o no has introduit res");
+                                            }
                                             carregarTaulaJugador();
                                             carregarTaulaEquip();
                                             //Aqui li donem el valor de -1 ja que sinos al editar ens deseleccionara la fila de la taula
