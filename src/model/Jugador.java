@@ -28,7 +28,7 @@ public class Jugador implements Comparable<Jugador> {
         this._4_gols = _4_gols;
         this._5_partits = _5_partits;
         this._2_equip.get9_jug().add(this);
-        
+
     }
 
     public String get1_nomcognoms() {
@@ -48,7 +48,8 @@ public class Jugador implements Comparable<Jugador> {
     }
 
     public String get3_posicio() {
-       return Arrays.toString(_3_posicio);
+        String resultat = Arrays.toString(_3_posicio);
+        return resultat.substring(1, resultat.length() - 1);
     }
 
     public void set3_posicio(String[] _3_posicio) {

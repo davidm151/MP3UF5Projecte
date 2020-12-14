@@ -389,19 +389,19 @@ public class Controller {
                                             obj.set6_partitsEmpatats(Integer.parseInt(view.getPartitsEmpats().getText()));
                                             obj.set7_punts(Integer.parseInt(view.getPuntsEquip().getText()));
                                             obj.set8_jornada(Integer.parseInt(view.getJornada().getText()));
-                                            
+
                                         } catch (NumberFormatException exception) {
                                             JOptionPane.showMessageDialog(view, "On tenies d'introduir un numero has introduit lletres o caracters o no has introduit res");
                                         }
                                         found = true;
                                         carregarTaulaJugador();
                                         carregarTaulaEquip();
-                                        
-                                        break;
+
+                                        //  break;
                                     }
                                     if (!found) {
                                         JOptionPane.showMessageDialog(view, "No has introduit un nom de equip correcte has introduit algo mes apart de lletres");
-                                        break;
+                                        // break;
                                     }
                                     break;
                                 }
@@ -449,7 +449,14 @@ public class Controller {
                                             try {
                                                 obj.set1_nomcognoms(view.getNomJugador().getText());
                                                 Equip obj1 = (Equip) view.getjComboBox1().getSelectedItem();
-                                                obj.set2_equip(obj1);
+                                                if (obj.get2_equip() == null) {
+                                                    obj.set2_equip(obj1);
+                                                    obj.get2_equip().get9_jug().add(obj);
+                                                } else if (obj.get2_equip() != obj1) {
+                                                    obj.get2_equip().get9_jug().remove(obj);
+                                                    obj.set2_equip(obj1);
+                                                    obj.get2_equip().get9_jug().add(obj);
+                                                }
                                                 String[] a3 = new String[1];
                                                 a3[0] = view.getPosicioJugador().getText();
                                                 obj.set3_posicio(a3);
