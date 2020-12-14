@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.TreeSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JTable;
@@ -26,6 +28,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import model.Equip;
+import model.Excepcio;
 import model.Jugador;
 import model.Model;
 import utilscontroller.Utils;
@@ -100,17 +103,25 @@ public class Controller {
                     StringBuilder a = new StringBuilder();
 
                     while (true) {
-                        String text = view.getNomEquip().getText();
+                        String text = view.getNomEquip().getText().replace(" ", "");
                         if (text.isEmpty()) {
+                            JOptionPane.showMessageDialog(view, "No has introduit res, esta buit!!!");
                             break;
                         }
                         Matcher matcher = pattern.matcher(text);
                         boolean found = false;
                         while (matcher.find()) {
                             try {
+                                if (Integer.parseInt(view.getGolsEnContra().getText()) < 0 || Integer.parseInt(view.getGolsAfavor().getText()) < 0 || Integer.parseInt(view.getPartitsGuanyats().getText()) < 0 || Integer.parseInt(view.getPartitsPerduts().getText()) < 0 || Integer.parseInt(view.getPartitsEmpats().getText()) < 0 || Integer.parseInt(view.getJornada().getText()) < 0) {
+                                    JOptionPane.showMessageDialog(view, "Has introduit un numero negatiu!!!");
+                                    found = true;
+                                    break;
+                                }
                                 model.obtenirEquip(a.append(view.getNomEquip().getText()), Integer.parseInt(view.getGolsEnContra().getText()), Integer.parseInt(view.getGolsAfavor().getText()), Integer.parseInt(view.getPartitsGuanyats().getText()), Integer.parseInt(view.getPartitsPerduts().getText()), Integer.parseInt(view.getPartitsEmpats().getText()), Integer.parseInt(view.getPuntsEquip().getText()), Integer.parseInt(view.getJornada().getText()));
                             } catch (NumberFormatException exception) {
                                 JOptionPane.showMessageDialog(view, "On tenies d'introduir un numero has introduit lletres o caracters o no has introduit res");
+                                found = true;
+                                break;
                             }
                             found = true;
                             carregarTaulaJugador();
@@ -123,8 +134,6 @@ public class Controller {
                         }
                         break;
                     }
-
-                    //model.<Equip>insertar(obj, model.getDades());
                 }
         );
 
@@ -146,18 +155,25 @@ public class Controller {
                         Pattern pattern = null;
                         pattern = Pattern.compile("^[a-zA-Z]*$");
                         while (true) {
-                            String text = view.getNomJugador().getText();
+                            String text = view.getNomJugador().getText().replace(" ", "");
                             if (text.isEmpty()) {
+                                JOptionPane.showMessageDialog(view, "No has introduit res, esta buit!!!");
                                 break;
                             }
                             Matcher matcher = pattern.matcher(text);
                             boolean found = false;
                             while (matcher.find()) {
-
                                 try {
+                                    if (Integer.parseInt(view.getGolsJugador().getText()) < 0 || Integer.parseInt(view.getPartitsJugador().getText()) < 0) {
+                                        JOptionPane.showMessageDialog(view, "Has introduit un numero negatiu!!!");
+                                        found = true;
+                                        break;
+                                    }
                                     model.obtenirJugador(view.getNomJugador().getText(), obj1, a, Integer.parseInt(view.getGolsJugador().getText()), Integer.parseInt(view.getPartitsJugador().getText()));
                                 } catch (NumberFormatException exception) {
                                     JOptionPane.showMessageDialog(view, "On tenies d'introduir un numero has introduit lletres o caracters o no has introduit res");
+                                    found = true;
+                                    break;
                                 }
                                 found = true;
                                 carregarTaulaJugador();
@@ -372,15 +388,20 @@ public class Controller {
                                 StringBuilder a = new StringBuilder();
                                 tcm.removeColumn(tc);
                                 while (true) {
-                                    String text = view.getNomEquip().getText();
+                                    String text = view.getNomEquip().getText().replace(" ", "");
                                     if (text.isEmpty()) {
+                                        JOptionPane.showMessageDialog(view, "No has introduit res, esta buit!!!");
                                         break;
                                     }
                                     Matcher matcher = pattern.matcher(text);
                                     boolean found = false;
                                     while (matcher.find()) {
-
                                         try {
+                                            if (Integer.parseInt(view.getGolsEnContra().getText()) < 0 || Integer.parseInt(view.getGolsAfavor().getText()) < 0 || Integer.parseInt(view.getPartitsGuanyats().getText()) < 0 || Integer.parseInt(view.getPartitsPerduts().getText()) < 0 || Integer.parseInt(view.getPartitsEmpats().getText()) < 0 || Integer.parseInt(view.getJornada().getText()) < 0) {
+                                                JOptionPane.showMessageDialog(view, "Has introduit un numero negatiu!!!");
+                                                found = true;
+                                                break;
+                                            }
                                             obj.set1_nom(a.append(view.getNomEquip().getText()));
                                             obj.set2_golsEnContra(Integer.parseInt(view.getGolsEnContra().getText()));
                                             obj.set3_golsAfavor(Integer.parseInt(view.getGolsAfavor().getText()));
@@ -430,8 +451,9 @@ public class Controller {
                                     Pattern pattern = null;
                                     pattern = Pattern.compile("^[a-zA-Z]*$");
                                     while (true) {
-                                        String text = view.getNomJugador().getText();
+                                        String text = view.getNomJugador().getText().replace(" ", "");
                                         if (text.isEmpty()) {
+                                            JOptionPane.showMessageDialog(view, "No has introduit res, esta buit!!!");
                                             break;
                                         }
                                         Matcher matcher = pattern.matcher(text);
@@ -447,7 +469,7 @@ public class Controller {
                                             tcm20.removeColumn(tc);
                                             tcm2.removeColumn(tc2);
                                             try {
-                                                obj.set1_nomcognoms(view.getNomJugador().getText());
+
                                                 Equip obj1 = (Equip) view.getjComboBox1().getSelectedItem();
                                                 if (obj.get2_equip() == null) {
                                                     obj.set2_equip(obj1);
@@ -460,11 +482,20 @@ public class Controller {
                                                 String[] a3 = new String[1];
                                                 a3[0] = view.getPosicioJugador().getText();
                                                 obj.set3_posicio(a3);
+                                                String nomjugador = view.getNomJugador().getText().replace(" ", "");
+                                                obj.set1_nomcognoms(view.getNomJugador().getText());
+                                                if (Integer.parseInt(view.getGolsJugador().getText()) < 0 || Integer.parseInt(view.getPartitsJugador().getText()) < 0) {
+                                                    JOptionPane.showMessageDialog(view, "Has introduit un numero negatiu!!!");
+                                                    found = true;
+                                                    break;
+                                                }
                                                 obj.set4_gols(Integer.parseInt(view.getGolsJugador().getText()));
                                                 obj.set5_partits(Integer.parseInt(view.getPartitsJugador().getText()));
 
                                             } catch (NumberFormatException exception) {
                                                 JOptionPane.showMessageDialog(view, "On tenies d'introduir un numero has introduit lletres o caracters o no has introduit res");
+                                                found = true;
+                                                break;
                                             }
                                             carregarTaulaJugador();
                                             carregarTaulaEquip();

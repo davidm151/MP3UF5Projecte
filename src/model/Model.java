@@ -11,6 +11,8 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 import java.util.TreeSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JTable;
 import model.Jugador;
 
@@ -52,8 +54,8 @@ public class Model {
     public Model() {
         StringBuilder s = new StringBuilder();
         StringBuilder s2 = new StringBuilder();
-        Equip a1 = new Equip(s.append("a1"), 1, 2, 3, 4, 5, 6, 0);
-        Equip a2 = new Equip(s2.append("a2"), 2, 1, 1, 1, 1, 1, 2);
+        Equip a1 = new Equip(s.append("a"), 1, 2, 3, 4, 5, 6, 0);
+        Equip a2 = new Equip(s2.append("b"), 2, 1, 1, 1, 1, 1, 2);
 
         dades.add(a1);
         dades.add(a2);
@@ -70,7 +72,6 @@ public class Model {
 
     public static <T> void insertar(T eq1, Collection<T> coleccion) {
         coleccion.add(eq1);
-
     }
 
 //    public static <T> void eliminar(T eq1, Collection<T> coleccion) {
@@ -80,7 +81,7 @@ public class Model {
     public static void borrarEquip(Equip eq1, Jugador j1) {
         dades.remove(eq1);
         dades2.remove(eq1);
-        if (j1.get2_equip()!=null && j1.get2_equip().compareTo(eq1) == 0) {
+        if (j1.get2_equip() != null && j1.get2_equip().compareTo(eq1) == 0) {
             j1.set2_equip(null);
         }
 
@@ -97,7 +98,7 @@ public class Model {
 
     }
 
-    public static void obtenirEquip(StringBuilder _1_nomEquip, int _2_golsEnContra, int _3_golsAfavor, int _4_partitsGuanyats, int _5_partitsPerduts, int _6_partitsEmpatats, int _7_puntsEquip, int _8_jornada) {
+    public static void obtenirEquip(StringBuilder _1_nomEquip, int _2_golsEnContra, int _3_golsAfavor, int _4_partitsGuanyats, int _5_partitsPerduts, int _6_partitsEmpatats, int _7_puntsEquip, int _8_jornada){
         Equip eq1 = new Equip(
                 _1_nomEquip,
                 _2_golsEnContra,
@@ -112,7 +113,7 @@ public class Model {
         Model.insertar(eq1, dades2);
     }
 
-    public static void obtenirJugador(String _1_nomcognomsJugador, Equip _2_equipJugador, String[] _3_posicioJugador, int _4_golsJugador, int _5_partitsJugador) {
+    public static void obtenirJugador(String _1_nomcognomsJugador, Equip _2_equipJugador, String[] _3_posicioJugador, int _4_golsJugador, int _5_partitsJugador){
         Jugador jug1 = new Jugador(
                 _1_nomcognomsJugador,
                 _2_equipJugador,
@@ -122,6 +123,7 @@ public class Model {
         );
         Model.insertar(jug1, dadesJugador);
         Model.insertar(jug1, dadesJugador);
+
     }
 //    public static void buscarEquipEnJugador(){
 //    while(dades.contains(dades)) {
@@ -131,11 +133,11 @@ public class Model {
 //		}
 //    }
 
-    public void dasd() {
-        String a[] = new String[]{"A", "B", "C", "D"};
-        List<String> list = Arrays.asList(a);
-        System.out.println("The list is: " + list);
-    }
+//    public void dasd() {
+//        String a[] = new String[]{"A", "B", "C", "D"};
+//        List<String> list = Arrays.asList(a);
+//        System.out.println("The list is: " + list);
+//    }
 }
 
 class EquipOrdenaPuntuacio implements Comparator<Equip> {
