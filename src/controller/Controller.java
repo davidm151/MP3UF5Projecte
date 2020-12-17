@@ -231,7 +231,7 @@ public class Controller {
                     obj = (Equip) input.readObject();
                     System.out.println(obj.toString());
                     Model.<Equip>insertar(obj, model.getDades());
-                    carregarTaulaEquip();
+                 //   carregarTaulaEquip();
 //                    obj2 = (Jugador) input.readObject();
 //                    System.out.println(obj2.toString());
 //                    Model.<Jugador>insertar(obj2, model.getDadesJugador());
@@ -289,7 +289,7 @@ public class Controller {
                     obj = (Jugador) input.readObject();
                     System.out.println(obj.toString());
                     Model.<Jugador>insertar(obj, model.getDadesJugador());
-                    carregarTaulaJugador();
+                  //  carregarTaulaJugador();
                 }
 
             } catch (ArrayIndexOutOfBoundsException ex) {
@@ -327,7 +327,7 @@ public class Controller {
 
 //        escriureFitxer();
         llegirFitxer();
- //       escriureFitxerJugador();
+//        escriureFitxerJugador();
         llegirFitxerJugadors();
         carregarTaulaJugador();
         carregarTaulaEquip();
