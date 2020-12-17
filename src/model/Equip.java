@@ -5,20 +5,16 @@
  */
 package model;
 
-import java.util.Arrays;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.TreeSet;
-import java.util.Vector;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
-import view.View;
 
 /**
  *
  * @author davidmarsal
  */
-public class Equip implements Comparable<Equip> {
+public class Equip implements Comparable<Equip>, Serializable {
 
     //private String _1_nom;
     private StringBuilder _1_nom=new StringBuilder();

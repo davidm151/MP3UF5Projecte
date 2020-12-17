@@ -6,7 +6,6 @@
 package controller;
 
 import static com.sun.java.accessibility.util.AWTEventMonitor.addActionListener;
-import static com.sun.java.accessibility.util.AWTEventMonitor.addWindowListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -62,11 +61,9 @@ public class Controller {
     private int filtroEquip = 0;
     private int filtroJugador = 0;
     private String equip = "";
-    private static File fitxer = new File("equip.db");
-    private static File fitxer2 = new File("jugador.db");
+    private static File fitxer = new File("dades.db");
 
     public Controller(Model m, View v) {
-
         model = m;
         view = v;
         controlador();
@@ -93,60 +90,40 @@ public class Controller {
             tc2 = Utils.<Jugador>loadTable(model.getDadesJugador2(), view.getTaulaJugadors(), Jugador.class, true, true);
         }
     }
-
-    private void escriureFitxer() {
+    
+        private void escriureFitxer() {
         ObjectOutputStream output = null;
         try {
             //Anem a guardar el objectes continguts al vector dins d'un fitxer --> escriptura --> Output
             output = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(fitxer)));
-            
-            for (Equip eq : model.getDades()) {
-                System.out.println(eq.get1_nom());
-                output.writeObject(eq);
-//                output.writeObject(eq.get1_nom());
-//                output.writeObject(eq.get2_golsEnContra());
-//                output.writeObject(eq.get3_golsAfavor());
-//                output.writeObject(eq.get4_partitsGuanyats());
-//                output.writeObject(eq.get5_partitsPerduts());
-//                output.writeObject(eq.get6_partitsEmpatats());
-//                output.writeObject(eq.get7_punts());
-//                output.writeObject(eq.get8_jornada());
-//                output.writeObject(eq.get9_jug());
+//for(Equip algo: model.getDades())
+//{
+//
+//
+//}
+        Iterator<Equip> it = model.getDades().iterator();
+        while(it.hasNext()){
+    Equip item=it.next();
+    output.writeObject(item);
+//    output.writeObject(item.get2_golsEnContra());
+//    output.writeObject(item.get3_golsAfavor());
+//    output.writeObject(item.get4_partitsGuanyats());
+//    output.writeObject(item.get5_partitsPerduts());
+//    output.writeObject(item.get6_partitsEmpatats());
+//    output.writeObject(item.get7_punts());
+//    output.writeObject(item.get8_jornada());
+//    output.writeObject(item.get9_jug());
+   // System.out.println(item.toString());
+    //System.out.println("tipo: " + item.get1_nom());
+}
 
-            }
-
-//            for (Jugador eq : model.getDadesJugador()) {
-//                output.writeObject(eq);
-//
-//            }
-//            for (Jugador eq : model.getDadesJugador()) {
-////System.out.println(eq.get9_jug());
-//                output.writeObject(eq);
-//
-//            }
-//            Iterator<Equip> it = model.getDades().iterator();
-//            while (it.hasNext()) {
-//                Equip item = it.next();
-//                System.out.println(item.toString());
-//                output.writeObject(item);
-//
-////    output.writeObject(item.get2_golsEnContra());
-////    output.writeObject(item.get3_golsAfavor());
-////    output.writeObject(item.get4_partitsGuanyats());
-////    output.writeObject(item.get5_partitsPerduts());
-////    output.writeObject(item.get6_partitsEmpatats());
-////    output.writeObject(item.get7_punts());
-////    output.writeObject(item.get8_jornada());
-////    output.writeObject(item.get9_jug());
-////    System.out.println(item.toString());
-////    System.out.println("tipo: " + item.get1_nom());
-//            }
 //            for (int i = 0; i < model.getDades().size(); i++) {
 //                output.writeObject(model.getDades().);
 //            }
 //            while(model.getDades()) {
 //            System.out.println(it.next());
 //        }
+
         } catch (FileNotFoundException ex) {
 
         } catch (IOException ex) {
@@ -162,134 +139,26 @@ public class Controller {
             }
         }
     }
-
-    private void escriureFitxerJugador() {
-        ObjectOutputStream output = null;
-        try {
-            //Anem a guardar el objectes continguts al vector dins d'un fitxer --> escriptura --> Output
-            output = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(fitxer2)));
-            for (Jugador eq : model.getDadesJugador()) {
-//System.out.println(eq.get9_jug());
-               output.writeObject(eq);
-//                output.writeObject(eq.get1_nomcognoms());
-//                output.writeObject(eq.get2_equip());
-//                output.writeObject(eq.get3_posicio());
-//                output.writeObject(eq.get4_gols());
-//                output.writeObject(eq.get5_partits());
-            }
-        } catch (FileNotFoundException ex) {
-
-        } catch (IOException ex) {
-
-        } finally {
-            try {
-                //Tanquem els recursos
-                output.close();
-            } catch (IOException ex) {
-
-            } catch (NullPointerException ex) {
-
-            }
-        }
-    }
-
-    private void llegirFitxer() {
+        
+            private void llegirFitxer() {
         if (fitxer.exists()) {
             //LLegim el fitxer --> lectura --> Input
             ObjectInputStream input = null;
 
             //Anem a mostrar el contingut del vector dins de la taula
-            // DefaultTableModel model = (DefaultTableModel) taulaJugadors.getModel();
+           // DefaultTableModel model = (DefaultTableModel) taulaJugadors.getModel();
+
             try {
-//                System.out.println("hola");
                 //Anem a llegir els objectes continguts al fitxer i els guardem al vector
                 input = new ObjectInputStream(new BufferedInputStream(new FileInputStream(fitxer)));
 
                 int i = 0;
-
-                String a = "";
-                int b1 = 0;
-                int b2 = 0;
-                int b3 = 0;
-                int b4 = 0;
-                int b5 = 0;
-                int b6 = 0;
-                int b7 = 0;
-                Equip obj;
-                Jugador obj2;
-                while (input!=null) {
-                    //  System.out.println("hola");
+                while (true) {
 //                    Equip obj =(Equip)input.readObject();
-//                    a=input.readUTF();
-//                    b1=input.readInt();
-//                    b2=input.readInt();
-//                    b3=input.readInt();
-//                    b4=input.readInt();
-//                    b5=input.readInt();
-//                    b6=input.readInt();
-//                    b7=input.readInt();
-                    obj = (Equip) input.readObject();
-                    System.out.println(obj.toString());
-                    Model.<Equip>insertar(obj, model.getDades());
-                    carregarTaulaEquip();
-//                    obj2 = (Jugador) input.readObject();
-//                    System.out.println(obj2.toString());
-//                    Model.<Jugador>insertar(obj2, model.getDadesJugador());
-//                    carregarTaulaJugador();
-//                    System.out.println(input.readUTF());
-//                    System.out.println(input.readInt());
-//                    System.out.println(input.readInt());
-//                    System.out.println(input.readInt());
-//                    System.out.println(input.readInt());
-//                    System.out.println(input.readInt());
-//                    System.out.println(input.readInt());
-//                    System.out.println(input.readInt());
-//                    System.out.println(input.readObject());
-//                    System.out.println("holaaa");
-                    // model.obtenirEquip((Equip)input.readObject());
-                    //   Model.<Equip>insertar((Equip)input.readObject(), model.getDades());
-                    //  carregarTaulaEquip();
-                }
-
-            } catch (ArrayIndexOutOfBoundsException ex) {
-                System.out.println("Atenció, tens més objectes que esl que pot administrar l'aplicació...");
-            } catch (FileNotFoundException ex) {
-
-            } catch (IOException ex) {
-                System.out.println("Hem acabat de llegir el fitxer...");
-            } catch (ClassNotFoundException ex) {
-
-            } finally {
-                try {
-                    input.close();
-                } catch (IOException ex) {
-
-                } catch (NullPointerException ex) {
-
-                }
-            }
-        }
-    }
-
-    private void llegirFitxerJugadors() {
-        if (fitxer2.exists()) {
-            //LLegim el fitxer --> lectura --> Input
-            ObjectInputStream input = null;
-
-            //Anem a mostrar el contingut del vector dins de la taula
-            // DefaultTableModel model = (DefaultTableModel) taulaJugadors.getModel();
-            try {
-                //Anem a llegir els objectes continguts al fitxer i els guardem al vector
-                input = new ObjectInputStream(new BufferedInputStream(new FileInputStream(fitxer2)));
-
-                int i = 0;
-
-                Jugador obj;
-                while (input!=null) {
-                    obj = (Jugador) input.readObject();
-                    System.out.println(obj.toString());
-                    Model.<Jugador>insertar(obj, model.getDadesJugador());
-                    carregarTaulaJugador();
+                   System.out.println(input.readObject());
+                   // model.obtenirEquip((Equip)input.readObject());
+                   //Model.<Equip>insertar((Equip)input.readObject(), model.getDades());
+//                   carregarTaulaEquip();
                 }
 
             } catch (ArrayIndexOutOfBoundsException ex) {
@@ -325,12 +194,10 @@ public class Controller {
         view.getFiltroJugadors().addItem("Gols de menor a major");
         view.getFiltroJugadors().addItem("Ordenar alfabeticament Jugadors");
 
-//        escriureFitxer();
-        llegirFitxer();
- //       escriureFitxerJugador();
-        llegirFitxerJugadors();
         carregarTaulaJugador();
         carregarTaulaEquip();
+        escriureFitxer();
+        llegirFitxer();
         view.getAfegirEquip().addActionListener(
                 e -> {
                     Pattern pattern = null;
@@ -353,9 +220,6 @@ public class Controller {
                                     break;
                                 }
                                 model.obtenirEquip(a.append(view.getNomEquip().getText()), Integer.parseInt(view.getGolsEnContra().getText()), Integer.parseInt(view.getGolsAfavor().getText()), Integer.parseInt(view.getPartitsGuanyats().getText()), Integer.parseInt(view.getPartitsPerduts().getText()), Integer.parseInt(view.getPartitsEmpats().getText()), Integer.parseInt(view.getPuntsEquip().getText()), Integer.parseInt(view.getJornada().getText()));
-
-                               
-
                             } catch (NumberFormatException exception) {
                                 JOptionPane.showMessageDialog(view, "On tenies d'introduir un numero has introduit lletres o caracters o no has introduit res");
                                 found = true;
@@ -413,7 +277,6 @@ public class Controller {
                                     found = true;
                                     break;
                                 }
-
                                 found = true;
                                 carregarTaulaJugador();
                                 carregarTaulaEquip();
@@ -573,15 +436,11 @@ public class Controller {
                                 //   Model.<Equip>eliminar(obj, Model.getDades2());
                                 TableColumnModel tcm2 = view.getTaulaJugadors().getColumnModel();
                                 tcm2.addColumn(tc2);
+                                for (int i = 0; i < view.getTaulaJugadors().getRowCount(); i++) {
+                                    Jugador obj2 = (Jugador) view.getTaulaJugadors().getValueAt(i, tcm2.getColumnCount() - 1);
+                                    Model.borrarEquip(obj, obj2);
+                                }
 
-//                                for (int i = 0; i < view.getTaulaJugadors().getRowCount(); i++) {
-//                                    Jugador obj2 = (Jugador) view.getTaulaJugadors().getValueAt(i, tcm2.getColumnCount() - 1);
-//                                    
-//
-//                                    //  llegirFitxer();
-//                                }
-                                Model.borrarEquip(obj);
-                                //  model.getDades().remove(obj);
                                 tcm2.removeColumn(tc2);
                                 carregarTaulaEquip();
                                 carregarTaulaJugador();
@@ -607,7 +466,6 @@ public class Controller {
                                 //   Model.<Jugador>eliminar(obj, Model.getDadesJugador());
                                 //  Model.<Jugador>eliminar(obj, Model.getDadesJugador2());
                                 Model.borrarJugador(obj);
-
                                 carregarTaulaJugador();
                                 carregarTaulaEquip();
                                 filaSel2 = -1;
@@ -654,8 +512,6 @@ public class Controller {
                                             obj.set6_partitsEmpatats(Integer.parseInt(view.getPartitsEmpats().getText()));
                                             obj.set7_punts(Integer.parseInt(view.getPuntsEquip().getText()));
                                             obj.set8_jornada(Integer.parseInt(view.getJornada().getText()));
-                                            carregarTaulaJugador();
-                                        carregarTaulaEquip();
 
                                         } catch (NumberFormatException exception) {
                                             JOptionPane.showMessageDialog(view, "On tenies d'introduir un numero has introduit lletres o caracters o no has introduit res");
@@ -722,7 +578,6 @@ public class Controller {
                                                     obj.get2_equip().get9_jug().add(obj);
                                                 } else if (obj.get2_equip() != obj1) {
                                                     obj.get2_equip().get9_jug().remove(obj);
-                                                    obj.set2_equip(null);
                                                     obj.set2_equip(obj1);
                                                     obj.get2_equip().get9_jug().add(obj);
                                                 }
@@ -738,7 +593,6 @@ public class Controller {
                                                 }
                                                 obj.set4_gols(Integer.parseInt(view.getGolsJugador().getText()));
                                                 obj.set5_partits(Integer.parseInt(view.getPartitsJugador().getText()));
-                                                // escriureFitxerJugador();
 
                                             } catch (NumberFormatException exception) {
                                                 JOptionPane.showMessageDialog(view, "On tenies d'introduir un numero has introduit lletres o caracters o no has introduit res");
@@ -798,27 +652,5 @@ public class Controller {
 
                         }
                 );
-        
-        view.addWindowListener(new java.awt.event.WindowAdapter() {
-            @Override
-            public void windowClosing(java.awt.event.WindowEvent e) {
-                //System.out.println("hola");
-                int seleccion = JOptionPane.showOptionDialog(
-                        view, "¿Desea guardar los datos antes de salir?", "Atención!", 1, 3, null, new Object[]{"Si", "No","Cancelar"}, "Si");
-            
-                switch(seleccion){
-                    case 0://Si elegimos "Si"
-                         escriureFitxer();//Llamamos al método que escribe los datos
-                         escriureFitxerJugador();
-                       //  System.out.println("aaa");
-                        System.exit(0);//Y cerramos el programa
-                        break;
-                    case 1://Si elegimos "No"
-                         System.exit(0);//Cerramos el programa
-                        break;
-                           //Si elegimos "Cancelar", pues nada...
-                }
-            }
-        });
     }
 }

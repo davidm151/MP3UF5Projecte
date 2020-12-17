@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
@@ -13,7 +14,7 @@ import java.util.Comparator;
  *
  * @author Usuario
  */
-public class Jugador implements Comparable<Jugador> {
+public class Jugador implements Comparable<Jugador>, Serializable {
 
     private String _1_nomcognoms;
     private Equip _2_equip;
