@@ -5,12 +5,6 @@
  */
 package controller;
 
-import static com.sun.java.accessibility.util.AWTEventMonitor.addActionListener;
-import static com.sun.java.accessibility.util.AWTEventMonitor.addWindowListener;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.BufferedInputStream;
@@ -22,24 +16,25 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
+import java.io.RandomAccessFile;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Iterator;
+import java.util.Objects;
+import java.util.Random;
 import java.util.TreeSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javax.swing.JTable;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
+import javax.swing.Box;
+import javax.swing.JLabel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import model.Equip;
-import model.Excepcio;
 import model.Jugador;
 import model.Model;
 import utilscontroller.Utils;
@@ -62,10 +57,14 @@ public class Controller {
     private int filtroEquip = 0;
     private int filtroJugador = 0;
     private String equip = "";
-    private static File fitxer = new File("equip.db");
-    private static File fitxer2 = new File("jugador.db");
+    private String fitxerEquip = "";
+    private String fitxerJugador = "";
+    private File fitxer = new File(fitxerEquip);
+    private File fitxer2 = new File(fitxerJugador);
+    private static File fitxerConfiguracio = new File("configuracio.db");
+    private static File fitxerConfiguracio2 = new File("configuracio2.db");
 
-    public Controller(Model m, View v) {
+    public Controller(Model m, View v) throws IOException {
 
         model = m;
         view = v;
@@ -76,10 +75,12 @@ public class Controller {
     public void carregarTaulaEquip() {
         if (filtroEquip == 0) {
             tc = Utils.<Equip>loadTable(model.getDades(), view.getTaulaEquips(), Equip.class, true, true);
+            view.getTaulaEquips().removeColumn(view.getTaulaEquips().getColumnModel().getColumn(8));
             Utils.<Equip>loadCombo(model.getDades(), view.getjComboBox1());
         } else if (filtroEquip == 1) {
             model.getDades2().addAll(model.getDades());
             tc = Utils.<Equip>loadTable(model.getDades2(), view.getTaulaEquips(), Equip.class, true, true);
+            view.getTaulaEquips().removeColumn(view.getTaulaEquips().getColumnModel().getColumn(8));
             Utils.<Equip>loadCombo(model.getDades(), view.getjComboBox1());
         }
     }
@@ -98,59 +99,18 @@ public class Controller {
         ObjectOutputStream output = null;
         try {
             //Anem a guardar el objectes continguts al vector dins d'un fitxer --> escriptura --> Output
-            output = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(fitxer)));
-            
+            //   System.out.println(fitxerEquip);
+            output = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(fitxerEquip)));
+
             for (Equip eq : model.getDades()) {
-                System.out.println(eq.get1_nom());
                 output.writeObject(eq);
-//                output.writeObject(eq.get1_nom());
-//                output.writeObject(eq.get2_golsEnContra());
-//                output.writeObject(eq.get3_golsAfavor());
-//                output.writeObject(eq.get4_partitsGuanyats());
-//                output.writeObject(eq.get5_partitsPerduts());
-//                output.writeObject(eq.get6_partitsEmpatats());
-//                output.writeObject(eq.get7_punts());
-//                output.writeObject(eq.get8_jornada());
-//                output.writeObject(eq.get9_jug());
 
             }
 
-//            for (Jugador eq : model.getDadesJugador()) {
-//                output.writeObject(eq);
-//
-//            }
-//            for (Jugador eq : model.getDadesJugador()) {
-////System.out.println(eq.get9_jug());
-//                output.writeObject(eq);
-//
-//            }
-//            Iterator<Equip> it = model.getDades().iterator();
-//            while (it.hasNext()) {
-//                Equip item = it.next();
-//                System.out.println(item.toString());
-//                output.writeObject(item);
-//
-////    output.writeObject(item.get2_golsEnContra());
-////    output.writeObject(item.get3_golsAfavor());
-////    output.writeObject(item.get4_partitsGuanyats());
-////    output.writeObject(item.get5_partitsPerduts());
-////    output.writeObject(item.get6_partitsEmpatats());
-////    output.writeObject(item.get7_punts());
-////    output.writeObject(item.get8_jornada());
-////    output.writeObject(item.get9_jug());
-////    System.out.println(item.toString());
-////    System.out.println("tipo: " + item.get1_nom());
-//            }
-//            for (int i = 0; i < model.getDades().size(); i++) {
-//                output.writeObject(model.getDades().);
-//            }
-//            while(model.getDades()) {
-//            System.out.println(it.next());
-//        }
         } catch (FileNotFoundException ex) {
-
+            System.out.println(ex.getMessage());
         } catch (IOException ex) {
-
+            System.out.println(ex.getMessage());
         } finally {
             try {
                 //Tanquem els recursos
@@ -167,15 +127,11 @@ public class Controller {
         ObjectOutputStream output = null;
         try {
             //Anem a guardar el objectes continguts al vector dins d'un fitxer --> escriptura --> Output
-            output = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(fitxer2)));
+            output = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(fitxerJugador)));
             for (Jugador eq : model.getDadesJugador()) {
-//System.out.println(eq.get9_jug());
-               output.writeObject(eq);
-//                output.writeObject(eq.get1_nomcognoms());
-//                output.writeObject(eq.get2_equip());
-//                output.writeObject(eq.get3_posicio());
-//                output.writeObject(eq.get4_gols());
-//                output.writeObject(eq.get5_partits());
+                if (eq.get2_equip() == null) {
+                    output.writeObject(eq);
+                }
             }
         } catch (FileNotFoundException ex) {
 
@@ -198,12 +154,9 @@ public class Controller {
             //LLegim el fitxer --> lectura --> Input
             ObjectInputStream input = null;
 
-            //Anem a mostrar el contingut del vector dins de la taula
-            // DefaultTableModel model = (DefaultTableModel) taulaJugadors.getModel();
             try {
-//                System.out.println("hola");
                 //Anem a llegir els objectes continguts al fitxer i els guardem al vector
-                input = new ObjectInputStream(new BufferedInputStream(new FileInputStream(fitxer)));
+                input = new ObjectInputStream(new BufferedInputStream(new FileInputStream(fitxerEquip)));
 
                 int i = 0;
 
@@ -217,38 +170,13 @@ public class Controller {
                 int b7 = 0;
                 Equip obj;
                 Jugador obj2;
-                while (input!=null) {
-                    //  System.out.println("hola");
-//                    Equip obj =(Equip)input.readObject();
-//                    a=input.readUTF();
-//                    b1=input.readInt();
-//                    b2=input.readInt();
-//                    b3=input.readInt();
-//                    b4=input.readInt();
-//                    b5=input.readInt();
-//                    b6=input.readInt();
-//                    b7=input.readInt();
+                while (input != null) {
                     obj = (Equip) input.readObject();
                     System.out.println(obj.toString());
                     Model.<Equip>insertar(obj, model.getDades());
-                 //   carregarTaulaEquip();
-//                    obj2 = (Jugador) input.readObject();
-//                    System.out.println(obj2.toString());
-//                    Model.<Jugador>insertar(obj2, model.getDadesJugador());
-//                    carregarTaulaJugador();
-//                    System.out.println(input.readUTF());
-//                    System.out.println(input.readInt());
-//                    System.out.println(input.readInt());
-//                    System.out.println(input.readInt());
-//                    System.out.println(input.readInt());
-//                    System.out.println(input.readInt());
-//                    System.out.println(input.readInt());
-//                    System.out.println(input.readInt());
-//                    System.out.println(input.readObject());
-//                    System.out.println("holaaa");
-                    // model.obtenirEquip((Equip)input.readObject());
-                    //   Model.<Equip>insertar((Equip)input.readObject(), model.getDades());
-                    //  carregarTaulaEquip();
+                    for (Jugador eq : obj._9_jug) {
+                        Model.<Jugador>insertar(eq, model.getDadesJugador());
+                    }
                 }
 
             } catch (ArrayIndexOutOfBoundsException ex) {
@@ -275,21 +203,17 @@ public class Controller {
         if (fitxer2.exists()) {
             //LLegim el fitxer --> lectura --> Input
             ObjectInputStream input = null;
-
-            //Anem a mostrar el contingut del vector dins de la taula
-            // DefaultTableModel model = (DefaultTableModel) taulaJugadors.getModel();
             try {
                 //Anem a llegir els objectes continguts al fitxer i els guardem al vector
-                input = new ObjectInputStream(new BufferedInputStream(new FileInputStream(fitxer2)));
+                input = new ObjectInputStream(new BufferedInputStream(new FileInputStream(fitxerJugador)));
 
                 int i = 0;
 
                 Jugador obj;
-                while (input!=null) {
+                while (input != null) {
                     obj = (Jugador) input.readObject();
                     System.out.println(obj.toString());
                     Model.<Jugador>insertar(obj, model.getDadesJugador());
-                  //  carregarTaulaJugador();
                 }
 
             } catch (ArrayIndexOutOfBoundsException ex) {
@@ -312,22 +236,158 @@ public class Controller {
         }
     }
 
-    private void controlador() {
+    private void guardarContrasenya() throws FileNotFoundException, IOException {
+        Random rn = new Random();
+        int offset = rn.nextInt(101 - 2);
+        int contrasenya = 12345678;
+        try (RandomAccessFile fitxerR = new RandomAccessFile(fitxerConfiguracio, "rw")) {
+            fitxerR.seek(0);
+            fitxerR.writeInt(offset);
+            fitxerR.seek(offset);
+            fitxerR.writeInt(contrasenya);
 
-        //Codi que inicilitza la vista
-        // model.dasd();
-        view.setVisible(true);
+        } catch (Exception e) {
+            System.out.println("Hi hagut algun problema1.");
+        }
+    }
 
-        //Codi que assigna els listeners als components de la vista
+    private int llegirContrasenya() throws FileNotFoundException, IOException {
+        try (RandomAccessFile fitxerR1 = new RandomAccessFile(fitxerConfiguracio, "rw")) {
+            fitxerR1.seek(0);
+            int x = fitxerR1.readInt();
+            fitxerR1.seek(x);
+            //  System.out.println(fitxerR1.readInt());
+            return fitxerR1.readInt();
+
+        } catch (Exception e) {
+            System.out.println("Hi hagut algun problema2.");
+        }
+        return 0;
+    }
+
+//    private String nomFitxerEquip() throws FileNotFoundException, IOException {
+//        if (fitxerConfiguracio2.exists()) {
+//            try (RandomAccessFile fitxerR1 = new RandomAccessFile(fitxerConfiguracio2, "rw")) {
+//                fitxerR1.seek(0);
+//                fitxerEquip = fitxerR1.readLine();
+//                System.out.println(fitxerEquip);
+//                return fitxerR1.readLine();
+//
+//            } catch (Exception e) {
+//                System.out.println("Hi hagut algun problema2.");
+//            }
+//        }
+//        return null;
+//    }
+
+    private void nomFitxerEquip_Jugador() throws FileNotFoundException, IOException {
+        if (fitxerConfiguracio2.exists()) {
+            try (RandomAccessFile fitxerR1 = new RandomAccessFile(fitxerConfiguracio2, "rw")) {
+                fitxerR1.seek(0);
+                fitxerEquip = fitxerR1.readLine();
+                fitxerR1.seek(1);
+                fitxerJugador = fitxerR1.readLine();
+                System.out.println(fitxerJugador);
+                System.out.println(fitxerEquip);
+                //return fitxerR1.readLine();
+
+            } catch (Exception e) {
+                System.out.println("Hi hagut algun problema2.");
+            }
+        }
+        //return null;
+    }
+
+    private void guardarFitxers() throws IOException {
+        if (!fitxerConfiguracio2.exists()) {
+            //   int button = JOptionPane.showConfirmDialog(null, box, "Introdueix  la contrasenya", JOptionPane.OK_CANCEL_OPTION);
+            //     System.out.println("hola");
+            Box box1 = Box.createHorizontalBox();
+            JLabel jl1 = new JLabel("Nom Fitxer Equip: ");
+            box1.add(jl1);
+            JTextField f1 = new JTextField(24);
+            box1.add(f1);
+            JLabel jl11 = new JLabel("Nom Fitxer Jugador: ");
+            box1.add(jl11);
+            JTextField f11 = new JTextField(24);
+            box1.add(f11);
+            int button = JOptionPane.showConfirmDialog(null, box1, "Introdueix el nom dels fitxers", JOptionPane.OK_CANCEL_OPTION);
+            //   guardarContrasenya();
+            if (button == JOptionPane.OK_OPTION) {
+                fitxerEquip = f1.getText();
+                fitxerJugador = f11.getText();
+                System.out.println(fitxerEquip);
+                System.out.println(fitxerJugador);
+                String fitxer1_senseEspais = fitxerEquip.replace(" ", "");
+                String fitxer2_senseEspais = fitxerJugador.replace(" ", "");
+                if (!fitxer1_senseEspais.equals("") && !fitxer2_senseEspais.equals("") && !Objects.equals(fitxerEquip, fitxerJugador)) {
+                    try (RandomAccessFile fitxerR = new RandomAccessFile(fitxerConfiguracio2, "rw")) {
+                        fitxerR.seek(0);
+                        fitxerR.writeChars(fitxerEquip);
+                        fitxerR.seek(1);
+                        fitxerR.writeChars(fitxerJugador);
+
+                    } catch (Exception e) {
+                        System.out.println("Hi hagut algun problema1.");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(view, "Has introduit algo malament es tancara lo programa");
+                    System.exit(0);
+                }
+            }
+        } else {
+            System.exit(0);
+        }
+    }
+
+    private void comprovarContrasenya() throws IOException {
+        Box box = Box.createHorizontalBox();
+        JLabel jl = new JLabel("Contrasenya: ");
+        box.add(jl);
+
+        JPasswordField jpf = new JPasswordField(24);
+        box.add(jpf);
+        int button = JOptionPane.showConfirmDialog(null, box, "Introdueix  la contrasenya", JOptionPane.OK_CANCEL_OPTION);
+        int x = 0;
+        if (!fitxerConfiguracio.exists()) {
+            guardarContrasenya();
+        }
+
+        x = llegirContrasenya();
+        if (button == JOptionPane.OK_OPTION) {
+            // System.out.println("asad");
+            char[] input = jpf.getPassword();
+            String pass = String.valueOf(input);
+            System.out.println(pass);
+
+            System.out.println(String.valueOf(x));
+            if (fitxerConfiguracio.exists() && pass.matches(String.valueOf(x))) {
+                JOptionPane.showMessageDialog(view, "Contrasenya correcta ");
+                view.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(view, "Contrasenya incorrecta ");
+                System.exit(0);
+            }
+
+        } else {
+            System.exit(0);
+        }
+
+    }
+
+    private void controlador() throws IOException {
+
+        comprovarContrasenya();
+        nomFitxerEquip_Jugador();
         //Combo Puntuacio
         view.getPuntuacio().addItem("Puntuacio de menor a major");
         view.getPuntuacio().addItem("Ordenar alfabeticament equips");
         view.getFiltroJugadors().addItem("Gols de menor a major");
         view.getFiltroJugadors().addItem("Ordenar alfabeticament Jugadors");
 
-//        escriureFitxer();
+        //  escriureFitxer();
         llegirFitxer();
-//        escriureFitxerJugador();
+        //   escriureFitxerJugador();
         llegirFitxerJugadors();
         carregarTaulaJugador();
         carregarTaulaEquip();
@@ -339,13 +399,15 @@ public class Controller {
 
                     while (true) {
                         String text = view.getNomEquip().getText().replace(" ", "");
+                        boolean found = false;
                         if (text.isEmpty()) {
+                            found = false;
                             JOptionPane.showMessageDialog(view, "No has introduit res, esta buit!!!");
                             break;
                         }
                         Matcher matcher = pattern.matcher(text);
-                        boolean found = false;
-                        while (matcher.find()) {
+
+                        if (matcher.find()) {
                             try {
                                 if (Integer.parseInt(view.getGolsEnContra().getText()) < 0 || Integer.parseInt(view.getGolsAfavor().getText()) < 0 || Integer.parseInt(view.getPartitsGuanyats().getText()) < 0 || Integer.parseInt(view.getPartitsPerduts().getText()) < 0 || Integer.parseInt(view.getPartitsEmpats().getText()) < 0 || Integer.parseInt(view.getJornada().getText()) < 0) {
                                     JOptionPane.showMessageDialog(view, "Has introduit un numero negatiu!!!");
@@ -353,8 +415,6 @@ public class Controller {
                                     break;
                                 }
                                 model.obtenirEquip(a.append(view.getNomEquip().getText()), Integer.parseInt(view.getGolsEnContra().getText()), Integer.parseInt(view.getGolsAfavor().getText()), Integer.parseInt(view.getPartitsGuanyats().getText()), Integer.parseInt(view.getPartitsPerduts().getText()), Integer.parseInt(view.getPartitsEmpats().getText()), Integer.parseInt(view.getPuntsEquip().getText()), Integer.parseInt(view.getJornada().getText()));
-
-                               
 
                             } catch (NumberFormatException exception) {
                                 JOptionPane.showMessageDialog(view, "On tenies d'introduir un numero has introduit lletres o caracters o no has introduit res");
@@ -400,7 +460,7 @@ public class Controller {
                             }
                             Matcher matcher = pattern.matcher(text);
                             boolean found = false;
-                            while (matcher.find()) {
+                            if (matcher.find()) {
                                 try {
                                     if (Integer.parseInt(view.getGolsJugador().getText()) < 0 || Integer.parseInt(view.getPartitsJugador().getText()) < 0) {
                                         JOptionPane.showMessageDialog(view, "Has introduit un numero negatiu!!!");
@@ -568,20 +628,9 @@ public class Controller {
                                 tcm.addColumn(tc);
                                 Equip obj = (Equip) view.getTaulaEquips().getValueAt(filaSel, tcm.getColumnCount() - 1);
                                 tcm.removeColumn(tc);
-
-                                //   Model.<Equip>eliminar(obj, Model.getDades());
-                                //   Model.<Equip>eliminar(obj, Model.getDades2());
                                 TableColumnModel tcm2 = view.getTaulaJugadors().getColumnModel();
                                 tcm2.addColumn(tc2);
-
-//                                for (int i = 0; i < view.getTaulaJugadors().getRowCount(); i++) {
-//                                    Jugador obj2 = (Jugador) view.getTaulaJugadors().getValueAt(i, tcm2.getColumnCount() - 1);
-//                                    
-//
-//                                    //  llegirFitxer();
-//                                }
                                 Model.borrarEquip(obj);
-                                //  model.getDades().remove(obj);
                                 tcm2.removeColumn(tc2);
                                 carregarTaulaEquip();
                                 carregarTaulaJugador();
@@ -639,7 +688,7 @@ public class Controller {
                                     }
                                     Matcher matcher = pattern.matcher(text);
                                     boolean found = false;
-                                    while (matcher.find()) {
+                                    if (matcher.find()) {
                                         try {
                                             if (Integer.parseInt(view.getGolsEnContra().getText()) < 0 || Integer.parseInt(view.getGolsAfavor().getText()) < 0 || Integer.parseInt(view.getPartitsGuanyats().getText()) < 0 || Integer.parseInt(view.getPartitsPerduts().getText()) < 0 || Integer.parseInt(view.getPartitsEmpats().getText()) < 0 || Integer.parseInt(view.getJornada().getText()) < 0) {
                                                 JOptionPane.showMessageDialog(view, "Has introduit un numero negatiu!!!");
@@ -655,7 +704,7 @@ public class Controller {
                                             obj.set7_punts(Integer.parseInt(view.getPuntsEquip().getText()));
                                             obj.set8_jornada(Integer.parseInt(view.getJornada().getText()));
                                             carregarTaulaJugador();
-                                        carregarTaulaEquip();
+                                            carregarTaulaEquip();
 
                                         } catch (NumberFormatException exception) {
                                             JOptionPane.showMessageDialog(view, "On tenies d'introduir un numero has introduit lletres o caracters o no has introduit res");
@@ -704,7 +753,7 @@ public class Controller {
                                         }
                                         Matcher matcher = pattern.matcher(text);
                                         boolean found = false;
-                                        while (matcher.find()) {
+                                        if (matcher.find()) {
 
                                             found = true;
                                             TableColumnModel tcm2 = view.getTaulaJugadors().getColumnModel();
@@ -798,25 +847,29 @@ public class Controller {
 
                         }
                 );
-        
+
         view.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent e) {
-                //System.out.println("hola");
                 int seleccion = JOptionPane.showOptionDialog(
-                        view, "¿Desea guardar los datos antes de salir?", "Atención!", 1, 3, null, new Object[]{"Si", "No","Cancelar"}, "Si");
-            
-                switch(seleccion){
-                    case 0://Si elegimos "Si"
-                         escriureFitxer();//Llamamos al método que escribe los datos
-                         escriureFitxerJugador();
-                       //  System.out.println("aaa");
-                        System.exit(0);//Y cerramos el programa
+                        view, "Vol guardar les dades antes de sortir?", "Atenció!", 1, 3, null, new Object[]{"Si", "No", "Cancelar"}, "Si");
+
+                switch (seleccion) {
+                    case 0: {
+                        try {
+                            guardarFitxers();
+                        } catch (IOException ex) {
+                            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+
+                        escriureFitxer();
+                        escriureFitxerJugador();
+                        System.exit(0);
                         break;
-                    case 1://Si elegimos "No"
-                         System.exit(0);//Cerramos el programa
+                    }
+                    case 1:
+                        System.exit(0);
                         break;
-                           //Si elegimos "Cancelar", pues nada...
                 }
             }
         });

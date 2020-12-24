@@ -6,6 +6,7 @@
 package mvcgui;
 
 import controller.Controller;
+import java.io.IOException;
 import model.Model;
 import view.View;
 
@@ -18,7 +19,7 @@ public class MVCGUI {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         // TODO code application logic here        
          new Controller(new Model(),new View());
     }
