@@ -9,13 +9,17 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.io.RandomAccessFile;
 import java.util.Arrays;
 import java.util.Collection;
@@ -63,6 +67,9 @@ public class Controller {
     private File fitxer2 = new File(fitxerJugador);
     private static File fitxerConfiguracio = new File("configuracio.db");
     private static File fitxerConfiguracio2 = new File("configuracio2.db");
+    //  private static File fitxerConfiguracio3 = new File("configuracio3.db");
+    private static File fitxerConf2 = new File("output.txt");
+    //  private static File fitxerConf3 = new File("characteroutput.txt");
 
     public Controller(Model m, View v) throws IOException {
 
@@ -150,6 +157,8 @@ public class Controller {
     }
 
     private void llegirFitxer() {
+        System.out.println(fitxerEquip);
+        System.out.println(fitxer.exists());
         if (fitxer.exists()) {
             //LLegim el fitxer --> lectura --> Input
             ObjectInputStream input = null;
@@ -200,6 +209,9 @@ public class Controller {
     }
 
     private void llegirFitxerJugadors() {
+        System.out.println(fitxerJugador);
+        System.out.println(fitxer2.exists());
+
         if (fitxer2.exists()) {
             //LLegim el fitxer --> lectura --> Input
             ObjectInputStream input = null;
@@ -265,43 +277,44 @@ public class Controller {
         return 0;
     }
 
-//    private String nomFitxerEquip() throws FileNotFoundException, IOException {
+//    private void nomFitxerEquip_Jugador() throws FileNotFoundException, IOException {
 //        if (fitxerConfiguracio2.exists()) {
 //            try (RandomAccessFile fitxerR1 = new RandomAccessFile(fitxerConfiguracio2, "rw")) {
 //                fitxerR1.seek(0);
-//                fitxerEquip = fitxerR1.readLine();
+//               // fitxerEquip = fitxerR1.readLine();
+//                fitxerR1.seek(1);
+//                fitxerJugador = fitxerR1.readLine();
+//                System.out.println(fitxerJugador);
 //                System.out.println(fitxerEquip);
-//                return fitxerR1.readLine();
+//                //return fitxerR1.readLine();
 //
 //            } catch (Exception e) {
 //                System.out.println("Hi hagut algun problema2.");
 //            }
 //        }
-//        return null;
+//        //return null;
 //    }
-
     private void nomFitxerEquip_Jugador() throws FileNotFoundException, IOException {
-        if (fitxerConfiguracio2.exists()) {
-            try (RandomAccessFile fitxerR1 = new RandomAccessFile(fitxerConfiguracio2, "rw")) {
-                fitxerR1.seek(0);
-                fitxerEquip = fitxerR1.readLine();
-                fitxerR1.seek(1);
-                fitxerJugador = fitxerR1.readLine();
-                System.out.println(fitxerJugador);
-                System.out.println(fitxerEquip);
-                //return fitxerR1.readLine();
-
-            } catch (Exception e) {
-                System.out.println("Hi hagut algun problema2.");
+        if(fitxerConf2.exists()){
+        BufferedReader br = new BufferedReader(new FileReader(fitxerConf2));
+        try {
+          // StringBuilder sb = new StringBuilder();
+          String[] textData = new String[2];
+            String line = br.readLine();
+            for (int i = 0; i <= 1; i++) {
+                textData[i] = br.readLine();
+                System.out.println(textData[i]);
             }
+            fitxerEquip=textData[0];
+            fitxerJugador=textData[1];
+        } finally {
+            br.close();
         }
-        //return null;
+        }
     }
 
     private void guardarFitxers() throws IOException {
-        if (!fitxerConfiguracio2.exists()) {
-            //   int button = JOptionPane.showConfirmDialog(null, box, "Introdueix  la contrasenya", JOptionPane.OK_CANCEL_OPTION);
-            //     System.out.println("hola");
+        if (!fitxerConf2.exists()) {
             Box box1 = Box.createHorizontalBox();
             JLabel jl1 = new JLabel("Nom Fitxer Equip: ");
             box1.add(jl1);
@@ -321,25 +334,67 @@ public class Controller {
                 String fitxer1_senseEspais = fitxerEquip.replace(" ", "");
                 String fitxer2_senseEspais = fitxerJugador.replace(" ", "");
                 if (!fitxer1_senseEspais.equals("") && !fitxer2_senseEspais.equals("") && !Objects.equals(fitxerEquip, fitxerJugador)) {
-                    try (RandomAccessFile fitxerR = new RandomAccessFile(fitxerConfiguracio2, "rw")) {
-                        fitxerR.seek(0);
-                        fitxerR.writeChars(fitxerEquip);
-                        fitxerR.seek(1);
-                        fitxerR.writeChars(fitxerJugador);
-
-                    } catch (Exception e) {
-                        System.out.println("Hi hagut algun problema1.");
+                    try {
+                        FileWriter writer = new FileWriter(fitxerConf2, true);
+                        writer.write("\r\n");
+                        writer.write(fitxerEquip);
+                        writer.write("\r\n");   // write new line
+                        writer.write(fitxerJugador);
+                        writer.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
                 } else {
                     JOptionPane.showMessageDialog(view, "Has introduit algo malament es tancara lo programa");
                     System.exit(0);
                 }
+            } else {
+                System.exit(0);
             }
-        } else {
-            System.exit(0);
         }
     }
 
+//    private void guardarFitxers() throws IOException {
+//        if (!fitxerConfiguracio2.exists()) {
+//            //   int button = JOptionPane.showConfirmDialog(null, box, "Introdueix  la contrasenya", JOptionPane.OK_CANCEL_OPTION);
+//            //     System.out.println("hola");
+//            Box box1 = Box.createHorizontalBox();
+//            JLabel jl1 = new JLabel("Nom Fitxer Equip: ");
+//            box1.add(jl1);
+//            JTextField f1 = new JTextField(24);
+//            box1.add(f1);
+//            JLabel jl11 = new JLabel("Nom Fitxer Jugador: ");
+//            box1.add(jl11);
+//            JTextField f11 = new JTextField(24);
+//            box1.add(f11);
+//            int button = JOptionPane.showConfirmDialog(null, box1, "Introdueix el nom dels fitxers", JOptionPane.OK_CANCEL_OPTION);
+//            //   guardarContrasenya();
+//            if (button == JOptionPane.OK_OPTION) {
+//                fitxerEquip = f1.getText();
+//                fitxerJugador = f11.getText();
+//                System.out.println(fitxerEquip);
+//                System.out.println(fitxerJugador);
+//                String fitxer1_senseEspais = fitxerEquip.replace(" ", "");
+//                String fitxer2_senseEspais = fitxerJugador.replace(" ", "");
+//                if (!fitxer1_senseEspais.equals("") && !fitxer2_senseEspais.equals("") && !Objects.equals(fitxerEquip, fitxerJugador)) {
+//                    try (RandomAccessFile fitxerR = new RandomAccessFile(fitxerConfiguracio2, "rw")) {
+//                        fitxerR.seek(0);
+//                        fitxerR.writeChars(fitxerEquip);
+//                        fitxerR.seek(1);
+//                        fitxerR.writeChars(fitxerJugador);
+//
+//                    } catch (Exception e) {
+//                        System.out.println("Hi hagut algun problema1.");
+//                    }
+//                } else {
+//                    JOptionPane.showMessageDialog(view, "Has introduit algo malament es tancara lo programa");
+//                    System.exit(0);
+//                }
+//            }
+//        } else {
+//            System.exit(0);
+//        }
+//    }
     private void comprovarContrasenya() throws IOException {
         Box box = Box.createHorizontalBox();
         JLabel jl = new JLabel("Contrasenya: ");
@@ -470,6 +525,10 @@ public class Controller {
                                     model.obtenirJugador(view.getNomJugador().getText(), obj1, a, Integer.parseInt(view.getGolsJugador().getText()), Integer.parseInt(view.getPartitsJugador().getText()));
                                 } catch (NumberFormatException exception) {
                                     JOptionPane.showMessageDialog(view, "On tenies d'introduir un numero has introduit lletres o caracters o no has introduit res");
+                                    found = true;
+                                    break;
+                                } catch (NullPointerException exception) {
+                                    JOptionPane.showMessageDialog(view, "El jugador te de tenir un equip.");
                                     found = true;
                                     break;
                                 }
