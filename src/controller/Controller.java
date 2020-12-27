@@ -101,7 +101,7 @@ public class Controller {
 
        // escriureFitxer();
         model.llegirFitxer();
-        model.escriureFitxerJugador();
+       // model.escriureFitxerJugador();
         model.llegirFitxerJugadors();
         carregarTaulaJugador();
         carregarTaulaEquip();

@@ -87,52 +87,28 @@ public class Model implements Serializable {
 
     public static void escriureFitxer() throws FileNotFoundException, IOException {
         //ObjectOutputStream output = null;
-        ObjectOutputStream output = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(fitxerEquip)));
-        try(output) {
+        
+        try(ObjectOutputStream output = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(fitxerEquip)))) {
             for (Equip eq : Model.getDades()) {
                 output.writeObject(eq);
-            }
-        } finally {
-            try {
-                //Tanquem els recursos
-                output.close();
-            } catch (IOException ex) {
-
-            } catch (NullPointerException ex) {
-
             }
         }
     }
 
-    public static void escriureFitxerJugador() {
-        ObjectOutputStream output = null;
-        try {
+    public static void escriureFitxerJugador() throws IOException {
+        try(ObjectOutputStream output = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(fitxerJugador)))) {
             //Anem a guardar el objectes continguts al vector dins d'un fitxer --> escriptura --> Output
-            output = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(fitxerJugador)));
+            
             for (Jugador eq : Model.getDadesJugador()) {
                 if (eq.get2_equip() == null) {
                     output.writeObject(eq);
                 }
-            }
-        } catch (FileNotFoundException ex) {
-
-        } catch (IOException ex) {
-
-        } finally {
-            try {
-                //Tanquem els recursos
-                output.close();
-            } catch (IOException ex) {
-
-            } catch (NullPointerException ex) {
-
             }
         }
     }
 
     public static void llegirFitxer() {
         ObjectInputStream input = null;
-
         try {
             input = new ObjectInputStream(new BufferedInputStream(new FileInputStream(fitxerEquip)));
             Equip obj;
@@ -145,51 +121,31 @@ public class Model implements Serializable {
                     Model.<Jugador>insertar(eq, Model.getDadesJugador());
                 }
             }
-
-        } catch (ArrayIndexOutOfBoundsException ex) {
-            System.out.println("Atenció, tens més objectes que esl que pot administrar l'aplicació...");
-        } catch (FileNotFoundException ex) {
-
+        }catch (FileNotFoundException ex) {
         } catch (IOException ex) {
             System.out.println("Hem acabat de llegir el fitxer...");
         } catch (ClassNotFoundException ex) {
-
         } catch (NullPointerException ex) {
-
         } finally {
             try {
                 input.close();
             } catch (IOException ex) {
-
             } catch (NullPointerException ex) {
-
             }
-            //    }
         }
     }
 
     public static void llegirFitxerJugadors() {
-        System.out.println(fitxerJugador);
-        //    System.out.println(fitxer2.exists());
-
-        // if (fitxer2.exists()) {
-        //LLegim el fitxer --> lectura --> Input
         ObjectInputStream input = null;
         try {
-            //Anem a llegir els objectes continguts al fitxer i els guardem al vector
             input = new ObjectInputStream(new BufferedInputStream(new FileInputStream(fitxerJugador)));
-
             Jugador obj;
             while (input != null) {
                 obj = (Jugador) input.readObject();
                 System.out.println(obj.toString());
                 Model.<Jugador>insertar(obj, Model.getDadesJugador());
             }
-
-        } catch (ArrayIndexOutOfBoundsException ex) {
-            System.out.println("Atenció, tens més objectes que esl que pot administrar l'aplicació...");
         } catch (FileNotFoundException ex) {
-
         } catch (IOException ex) {
             System.out.println("Hem acabat de llegir el fitxer...");
         } catch (ClassNotFoundException ex) {
@@ -203,7 +159,6 @@ public class Model implements Serializable {
 
             }
         }
-        //  }
     }
 
     public static void guardarContrasenya() throws FileNotFoundException, IOException {
@@ -215,9 +170,6 @@ public class Model implements Serializable {
             fitxerR.writeInt(offset);
             fitxerR.seek(offset);
             fitxerR.writeInt(contrasenya);
-
-        } catch (Exception e) {
-            System.out.println("Hi hagut algun problema.");
         }
     }
 
@@ -227,16 +179,12 @@ public class Model implements Serializable {
             int x = fitxerR1.readInt();
             fitxerR1.seek(x);
             return fitxerR1.readInt();
-
-        } catch (Exception e) {
-            System.out.println("Hi hagut algun problema.");
         }
-        return 0;
     }
 
     public static void nomFitxerEquip_Jugador() throws FileNotFoundException, IOException {
         if (fitxerConf2.exists()) {
-            try (BufferedReader br = new BufferedReader(new FileReader(fitxerConf2));) {
+            try (BufferedReader br = new BufferedReader(new FileReader(fitxerConf2))) {
                 String[] textData = new String[2];
                 String line = br.readLine();
                 for (int i = 0; i <= 1; i++) {
@@ -247,8 +195,6 @@ public class Model implements Serializable {
                 fitxer = new File(fitxerEquip);
                 fitxerJugador = textData[1];
                 fitxer2 = new File(fitxerJugador);
-            } catch (Exception e) {
-                System.out.println("Hi hagut algun problema.");
             }
         }
     }
@@ -273,15 +219,12 @@ public class Model implements Serializable {
                 String fitxer1_senseEspais = fitxerEquip.replace(" ", "");
                 String fitxer2_senseEspais = fitxerJugador.replace(" ", "");
                 if (!fitxer1_senseEspais.equals("") && !fitxer2_senseEspais.equals("") && !Objects.equals(fitxerEquip, fitxerJugador)) {
-                    try {
-                        FileWriter writer = new FileWriter(fitxerConf2, true);
+                    try(FileWriter writer = new FileWriter(fitxerConf2, true)){
                         writer.write("\r\n");
                         writer.write(fitxerEquip);
                         writer.write("\r\n");   // write new line
                         writer.write(fitxerJugador);
                         writer.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
                     }
                 } else {
                     JOptionPane.showMessageDialog(view, "Has introduit algo malament es tancara lo programa");
