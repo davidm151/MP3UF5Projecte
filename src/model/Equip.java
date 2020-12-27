@@ -17,7 +17,7 @@ import java.util.TreeSet;
 public class Equip implements Comparable<Equip>, Serializable {
 
     //private String _1_nom;
-    private StringBuilder _1_nom=new StringBuilder();
+    private StringBuilder _1_nom = new StringBuilder();
     private int _2_golsEnContra;
     private int _3_golsAfavor;
     private int _4_partitsGuanyats;
@@ -37,17 +37,13 @@ public class Equip implements Comparable<Equip>, Serializable {
         this._7_punts = _7_punts;
         this._8_jornada = _8_jornada;
     }
-    
-//     public void EliminarJugadorDelEquip(Jugador a) {
-//        a.remove(a);
-//    }
 
-    public Collection<Jugador> get9_jug() {
-        return _9_jug;
+    public StringBuilder get1_nom() {
+        return _1_nom;
     }
 
-    public void set9_jug(Collection<Jugador> _9_jug) {
-        this._9_jug = _9_jug;
+    public void set1_nom(StringBuilder _1_nom) {
+        this._1_nom = _1_nom;
     }
 
     public int get2_golsEnContra() {
@@ -90,6 +86,14 @@ public class Equip implements Comparable<Equip>, Serializable {
         this._6_partitsEmpatats = _6_partitsEmpatats;
     }
 
+    public int get7_punts() {
+        return _7_punts;
+    }
+
+    public void set7_punts(int _7_punts) {
+        this._7_punts = _7_punts;
+    }
+
     public int get8_jornada() {
         return _8_jornada;
     }
@@ -98,22 +102,12 @@ public class Equip implements Comparable<Equip>, Serializable {
         this._8_jornada = _8_jornada;
     }
 
-    public StringBuilder get1_nom() {
-        return _1_nom;
+    public Collection<Jugador> get9_jug() {
+        return _9_jug;
     }
 
-    public void set1_nom(StringBuilder _1_nom) {
-        this._1_nom = _1_nom;
-    }
-    
-    
-
-    public int get7_punts() {
-        return _7_punts;
-    }
-
-    public void set7_punts(int _7_punts) {
-        this._7_punts = _7_punts;
+    public void set9_jug(Collection<Jugador> _9_jug) {
+        this._9_jug = _9_jug;
     }
 
     @Override

@@ -7,7 +7,6 @@ package model;
 
 import java.io.Serializable;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Comparator;
 
 /**
@@ -75,7 +74,6 @@ public class Jugador implements Comparable<Jugador>, Serializable {
 
     @Override
     public String toString() {
-        //return "Jugador{" + "_1_nomcognoms=" + _1_nomcognoms + ", _2_equip=" + _2_equip + ", _3_posicio=" + _3_posicio + ", _4_gols=" + _4_gols + ", _5_partits=" + _5_partits + '}';
         return _1_nomcognoms;
     }
 
